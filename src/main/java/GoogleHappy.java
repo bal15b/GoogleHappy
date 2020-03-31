@@ -125,7 +125,7 @@ public class GoogleHappy
   //primary list of people
   private int count;
 
-  private PageRank p;
+  public PageRank p;
 
   //reads from file and puts users into the people array
   private void prefs(HashMap<String, Integer> mentioned_people)
@@ -222,7 +222,7 @@ public class GoogleHappy
     scanner.close();
   }
   
-  private void primaryFunction()
+  public void primaryFunction()
   {
     //defines map
     HashMap<String, Integer> mentioned_people = new HashMap<String, Integer>();
