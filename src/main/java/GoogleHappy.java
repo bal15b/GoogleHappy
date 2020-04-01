@@ -13,9 +13,24 @@ import java.io.*;
 public class GoogleHappy 
 {
 
+  private boolean weighted;
+
   public double getMath(double n, int choice)
   {
+    if (weighted == "t")
+    {
+      int count = 0;
+
+      for (int i = 0; i <= n; i++)
+      {
+        count += i;
+      }
+
+      return choice/count;
+    }
+
     return 1/n;
+    
   }
 
 
@@ -228,8 +243,10 @@ public class GoogleHappy
     scanner.close();
   }
   
-  public void primaryFunction()
+  public void primaryFunction(String w)
   {
+    weighted = w;
+
     //defines map
     HashMap<String, Integer> mentioned_people = new HashMap<String, Integer>();
     p = new PageRank();
@@ -250,6 +267,6 @@ public class GoogleHappy
   public static void main (String[] args )  throws FileNotFoundException
   {
     //creates the main GoogleHappy object and runs primaryFunction
-    new GoogleHappy().primaryFunction();
+    new GoogleHappy().primaryFunction(args[0]);
   }
 }

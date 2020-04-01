@@ -25,7 +25,7 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction();
+        g.primaryFunction(f);
 
         int t = (int)(g.p.pagerank[1] * 100);
         assertEquals(t,17);
@@ -54,7 +54,7 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction();
+        g.primaryFunction(f);
 
 		int t = (int)(g.p.pagerank[1] * 100);
         assertEquals(t,15);
@@ -98,7 +98,7 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-        g.primaryFunction();
+        g.primaryFunction(f);
 		
 		assertEquals(g.p.path[1][1],0);
 		assertEquals(g.p.path[1][2],1);
@@ -145,7 +145,7 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-        g.primaryFunction();
+        g.primaryFunction(f);
 		
 		assertEquals(g.p.path[1][1],0);
 		assertEquals(g.p.path[1][2],1);
