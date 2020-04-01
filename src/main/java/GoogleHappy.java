@@ -13,6 +13,12 @@ import java.io.*;
 public class GoogleHappy 
 {
 
+  public double getMath(double n, int choice)
+  {
+    return 1/n;
+  }
+
+
   public class PageRank {
    
       public int path[][] = new int[10000][10000];
@@ -58,20 +64,20 @@ public class GoogleHappy
           {
         for(ExternalNodeNumber=1;ExternalNodeNumber<=totalNodes;ExternalNodeNumber++)
             {
-          if(this.path[ExternalNodeNumber][InternalNodeNumber] == 1)
+          if(this.path[ExternalNodeNumber][InternalNodeNumber] > 0)
               { 
             k=1;
             OutgoingLinks=0;  // Count the Number of Outgoing Links for each ExternalNodeNumber
             while(k<=totalNodes)
                 {
-              if(this.path[ExternalNodeNumber][k] == 1 )
+              if(this.path[ExternalNodeNumber][k] > 0 )
                   {
                 OutgoingLinks=OutgoingLinks+1; // Counter for Outgoing Links
                   }  
               k=k+1;  
                 } 
             // Calculate PageRank     
-            this.pagerank[InternalNodeNumber]+=TempPageRank[ExternalNodeNumber]*(1/OutgoingLinks);    
+            this.pagerank[InternalNodeNumber]+=TempPageRank[ExternalNodeNumber]*(getMath(OutgoingLinks,path[ExternalNodeNumber][InternalNodeNumber]));    
               }
             }  
           }    
