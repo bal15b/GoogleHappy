@@ -85,3 +85,98 @@ public class GoogleHappyTest
     }
 
 }
+
+    //test 3 makes sure the matrix is alligned correctly
+    @Test
+    public void test3()  throws FileNotFoundException
+    {
+    	//Test 3 By Nic Fornicola
+    	GoogleHappy g = new GoogleHappy();
+
+    	String prefs = "Calvin,Bubba,Blinkendorfer,Suzie\nBubba,Snoopie,Donald\nBlinkendorfer,Bubba,Billy,Ivanka\nSuzie,Ivanka,Donald\nDonald,Bubba,Ivanka,Mitch\nMitch,Snoopie,Bubba,Suzie,Ivanka,Donald\nSnoopie,Bubba\nBilly,Donald,Blinkendorfer\nIvanka,Donald,Billy,Suzie";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+        g.primaryFunction();
+		
+		assertEquals(g.p.path[1][1],0);
+		assertEquals(g.p.path[1][2],1);
+		assertEquals(g.p.path[1][3],1);
+		assertEquals(g.p.path[1][4],1);
+		assertEquals(g.p.path[1][5],0);
+		assertEquals(g.p.path[1][6],0);
+		assertEquals(g.p.path[1][7],0);
+		assertEquals(g.p.path[1][8],0);
+		assertEquals(g.p.path[1][9],0);
+
+		assertEquals(g.p.path[2][1],0);
+		assertEquals(g.p.path[2][2],0);
+		assertEquals(g.p.path[2][3],0);
+		assertEquals(g.p.path[2][4],0);
+		assertEquals(g.p.path[2][5],1);
+		assertEquals(g.p.path[2][6],0);
+		assertEquals(g.p.path[2][7],1);
+		assertEquals(g.p.path[2][8],0);
+		assertEquals(g.p.path[2][9],0);
+
+		assertEquals(g.p.path[3][1],0);
+		assertEquals(g.p.path[3][2],1);
+		assertEquals(g.p.path[3][3],0);
+		assertEquals(g.p.path[3][4],0);
+		assertEquals(g.p.path[3][5],0);
+		assertEquals(g.p.path[3][6],0);
+		assertEquals(g.p.path[3][7],0);
+		assertEquals(g.p.path[3][8],1);
+		assertEquals(g.p.path[3][9],1);
+
+    }
+	
+    //test 4 makes sure the matrix is alligned correctly
+    @Test
+    public void test4()  throws FileNotFoundException
+    {
+    	//Test 4 By Nic Fornicola
+    	GoogleHappy g = new GoogleHappy();
+
+	//different preferences
+    	String prefs = "Calvin,Bubba,Suzie,Billy,Ivanka,Snoopie,Donald\nBubba,Snoopie,Suzie,Donald,Billy,\nBlinkendorfer,Billy,Ivanka\nSuzie,Donald,Blinkendorfer,Bubba\nDonald,Bubba,Ivanka,Mitch\nMitch,Bubba,Suzie,Ivanka,Donald\nSnoopie,Bubba\nBilly,Donald,Blinkendorfer,Snoopie\nIvanka,Donald,Suzie";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+        g.primaryFunction();
+		
+		assertEquals(g.p.path[1][1],0);
+		assertEquals(g.p.path[1][2],1);
+		assertEquals(g.p.path[1][3],0);
+		assertEquals(g.p.path[1][4],1);
+		assertEquals(g.p.path[1][5],1);
+		assertEquals(g.p.path[1][6],0);
+		assertEquals(g.p.path[1][7],1);
+		assertEquals(g.p.path[1][8],1);
+		assertEquals(g.p.path[1][9],1);
+
+		assertEquals(g.p.path[2][1],0);
+		assertEquals(g.p.path[2][2],0);
+		assertEquals(g.p.path[2][3],0);
+		assertEquals(g.p.path[2][4],1);
+		assertEquals(g.p.path[2][5],1);
+		assertEquals(g.p.path[2][6],0);
+		assertEquals(g.p.path[2][7],1);
+		assertEquals(g.p.path[2][8],1);
+		assertEquals(g.p.path[2][9],0);
+
+		assertEquals(g.p.path[3][1],0);
+		assertEquals(g.p.path[3][2],0);
+		assertEquals(g.p.path[3][3],0);
+		assertEquals(g.p.path[3][4],0);
+		assertEquals(g.p.path[3][5],0);
+		assertEquals(g.p.path[3][6],0);
+		assertEquals(g.p.path[3][7],0);
+		assertEquals(g.p.path[3][8],1);
+		assertEquals(g.p.path[3][9],1);
+		
+    }
+
+}
