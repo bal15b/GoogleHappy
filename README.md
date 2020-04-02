@@ -56,18 +56,18 @@ TBA
 
 ##### Ben
 ###### Top 3 Strengths
-1. TBA
-2. 
-3. 
+1. Finding the optimal way to do things (or at least trying to)
+2. Can communicate with others
+3. Knows how to type
 ###### How Do You Perform?
-* 
-* 
-* 
+* Perfer to work in larger chunks instead of spreading it out
+* Forced to be a morning person
+* Professional time waster
 ###### What Are Your Values?
-* 
-* 
-* 
+* Likes having fun
+* Wants to get good grades
+* Want to learn about the places I don't know much about
 ###### What Can You Contribute?
-* 
-* 
-* 
+* Ideas
+* Code
+* Other stuff
