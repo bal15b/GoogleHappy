@@ -25,7 +25,7 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction(f);
+        g.primaryFunction("f");
 
         int t = (int)(g.p.pagerank[1] * 100);
         assertEquals(t,17);
@@ -54,7 +54,7 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction(f);
+        g.primaryFunction("f");
 
 		int t = (int)(g.p.pagerank[1] * 100);
         assertEquals(t,15);
@@ -84,8 +84,6 @@ public class GoogleHappyTest
         assertEquals(t,28);
     }
 
-}
-
     //test 3 makes sure the matrix is alligned correctly
     @Test
     public void test3()  throws FileNotFoundException
@@ -98,7 +96,7 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-        g.primaryFunction(f);
+        g.primaryFunction("f");
 		
 		assertEquals(g.p.path[1][1],0);
 		assertEquals(g.p.path[1][2],1);
@@ -145,7 +143,7 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-        g.primaryFunction(f);
+        g.primaryFunction("f");
 		
 		assertEquals(g.p.path[1][1],0);
 		assertEquals(g.p.path[1][2],1);
@@ -177,6 +175,34 @@ public class GoogleHappyTest
 		assertEquals(g.p.path[3][8],1);
 		assertEquals(g.p.path[3][9],1);
 		
+    }
+
+    //makes sure matrix includes people who are only mentioned
+    @Test
+    public void test5()  throws FileNotFoundException
+    {
+    	//Test 5 By Ben Lamont
+    	GoogleHappy g = new GoogleHappy();
+
+    	String prefs = "A,B\nB,C,D,E\nE,D,A";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+
+        g.primaryFunction("f");
+
+       	assertEquals(g.p.path[1][1],0);
+       	assertEquals(g.p.path[2][2],0);
+       	assertEquals(g.p.path[3][3],0);
+       	assertEquals(g.p.path[4][4],0);
+       	assertEquals(g.p.path[5][5],0);
+
+       	assertEquals(g.p.path[1][2],1);
+       	assertEquals(g.p.path[2][3],1);
+       	assertEquals(g.p.path[2][4],1);
+       	assertEquals(g.p.path[2][5],1);
+       	assertEquals(g.p.path[3][1],1);
+       	assertEquals(g.p.path[3][5],1);
     }
 
 }

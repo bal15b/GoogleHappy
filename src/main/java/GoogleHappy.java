@@ -13,7 +13,7 @@ import java.io.*;
 public class GoogleHappy 
 {
 
-  private boolean weighted;
+  private String weighted;
 
   public double getMath(double n, int choice)
   {
@@ -192,7 +192,6 @@ public class GoogleHappy
         //goes through choices and if it is not in the map adds it
         if (!mentioned_people.containsKey(temp3[j]))
         {
-          System.out.println(temp3[j]);
           temp[count] = temp3[j];
 
           mentioned_people.put(temp3[j],count); 
@@ -229,6 +228,7 @@ public class GoogleHappy
         }
       }
     }
+    System.out.println("\n\n");
 
     for (int i = 1; i <= count; i++)
     {
