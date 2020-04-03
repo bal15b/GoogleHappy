@@ -280,4 +280,22 @@ public class GoogleHappyTest
 
     }
 
+
+    //tests to make sure it doesn't break on an empty preference
+    @Test
+    public void test9()  throws FileNotFoundException
+    {
+    	//Test 9 By Ben Lamont
+    	GoogleHappy g = new GoogleHappy();
+
+    	String prefs = "A,B,C\nB,C\nC,B,,D";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+
+        g.primaryFunction("f");
+
+        assertEquals(g.p.path[3][4],1);
+    }
+
 }
