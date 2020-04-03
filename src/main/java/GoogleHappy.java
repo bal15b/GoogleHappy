@@ -223,12 +223,21 @@ public class GoogleHappy
         {
           p.path[i+1][t+1] = j+1;
         }
-        //sets to zero if point at self
+
+      }
+    }
+
+    for (int i = 1; i <= count; i++)
+    {
+      for (int j = 1; j <= count; j++)
+      {
+                //sets to zero if point at self
         if(j==i)
         {
-          p.path[i+1][j+1]=0;
+          p.path[i][j]=0;
         }
       }
+
     }
     System.out.println("\n\n");
 

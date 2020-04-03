@@ -228,7 +228,7 @@ public class GoogleHappyTest
     @Test
     public void test7()  throws FileNotFoundException
     {
-    	//Test 6 By Ben Lamont
+    	//Test 7 By Ben Lamont
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "A,B,C\nB,C\nC,B,A,D";
@@ -251,6 +251,32 @@ public class GoogleHappyTest
         assertEquals(g.p.path[3][2],1);
         assertEquals(g.p.path[3][1],2);
         assertEquals(g.p.path[3][4],3);
+
+    }
+
+
+    //tests to make sure you can't vote for yourself
+    @Test
+    public void test8()  throws FileNotFoundException
+    {
+    	//Test 8 By Ben Lamont
+    	GoogleHappy g = new GoogleHappy();
+
+    	String prefs = "A,A,A,A\nB,B,B,B\nC,C,C,C\nD,D,D,D";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+
+        g.primaryFunction("f");
+
+        for (int i = 1; i <= 4; i++)
+        {
+        	for (int j = 1; j <= 4; j++)
+        	{
+        		assertEquals(g.p.path[i][j],0);
+        	}
+        }
+
 
     }
 
