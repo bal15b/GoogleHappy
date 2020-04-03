@@ -25,8 +25,7 @@ public class GoogleHappy
       {
         count += i;
       }
-
-      return choice/count;
+      return (n-choice+1)/count;
     }
 
     return 1/n;
@@ -220,7 +219,10 @@ public class GoogleHappy
       {
         int t = mentioned_people.get(temp3[j]);
         p.path[i+1][t+1] = 1;
-
+        if (weighted == "t")
+        {
+          p.path[i+1][t+1] = j+1;
+        }
         //sets to zero if point at self
         if(j==i)
         {

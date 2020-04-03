@@ -224,4 +224,34 @@ public class GoogleHappyTest
 
     }
 
+    //makes sure the weighted values are entered into the array correctly
+    @Test
+    public void test7()  throws FileNotFoundException
+    {
+    	//Test 6 By Ben Lamont
+    	GoogleHappy g = new GoogleHappy();
+
+    	String prefs = "A,B,C\nB,C\nC,B,A,D";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+
+        g.primaryFunction("t");
+
+        assertEquals(g.p.path[1][1],0);
+        assertEquals(g.p.path[2][2],0);
+        assertEquals(g.p.path[3][3],0);
+        assertEquals(g.p.path[4][4],0);
+
+        assertEquals(g.p.path[1][2],1);
+        assertEquals(g.p.path[1][3],2);
+
+        assertEquals(g.p.path[2][3],1);
+
+        assertEquals(g.p.path[3][2],1);
+        assertEquals(g.p.path[3][1],2);
+        assertEquals(g.p.path[3][4],3);
+
+    }
+
 }
