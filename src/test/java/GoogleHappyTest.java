@@ -205,4 +205,23 @@ public class GoogleHappyTest
        	assertEquals(g.p.path[3][5],1);
     }
 
+
+    //test to see if it breaks with no people
+    @Test
+    public void test6()  throws FileNotFoundException
+    {
+    	//Test 6 By Ben Lamont
+    	GoogleHappy g = new GoogleHappy();
+
+    	String prefs = "";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+
+        g.primaryFunction("f");
+
+        assertEquals(g.count,0);
+
+    }
+
 }

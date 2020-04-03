@@ -144,7 +144,7 @@ public class GoogleHappy
 
 
   //primary list of people
-  private int count;
+  public int count;
 
   public PageRank p;
 
