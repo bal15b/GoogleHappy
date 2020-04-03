@@ -298,4 +298,26 @@ public class GoogleHappyTest
         assertEquals(g.p.path[3][4],1);
     }
 
+
+    //tests to make sure weighted prefs are distributed properly
+    @Test
+    public void wtest1()  throws FileNotFoundException
+    {
+    	//Test 10 By Ben Lamont
+    	GoogleHappy g = new GoogleHappy();
+
+    	String prefs = "1,2,3,4,5,6,7,8,9\n2,1,3,4,5,6,7,8,9\n3,1,2,4,5,6,7,8,9\n4,1,2,3,5,6,7,8,9\n5,1,2,3,4,6,7,8,9\n6,1,2,3,4,5,7,8,9\n7,1,2,3,4,5,6,8,9\n8,1,2,3,4,5,6,7,9\n9,1,2,3,4,5,6,7,8";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+
+        g.primaryFunction("t");
+
+
+        for (int i = 1; i < 9; i++)
+        {
+        	assertTrue(g.p.pagerank[i] > g.p.pagerank[i+1]);
+        }
+
+    }
 }
