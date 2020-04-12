@@ -301,7 +301,7 @@ public class GoogleHappyTest
 
     //tests to make sure weighted prefs are distributed properly
     @Test
-    public void wtest1()  throws FileNotFoundException
+    public void test10()  throws FileNotFoundException
     {
     	//Test 10 By Ben Lamont
     	GoogleHappy g = new GoogleHappy();
@@ -318,6 +318,69 @@ public class GoogleHappyTest
         {
         	assertTrue(g.p.pagerank[i] > g.p.pagerank[i+1]);
         }
+
+    }
+	
+	@Test
+    public void test11()  throws FileNotFoundException
+    {
+		
+	//Test 11 By Nic Fornicola
+	System.out.println("TEST11");
+    	GoogleHappy g = new GoogleHappy();
+		
+		
+		HashMap<String, Integer> testHash = new HashMap<String, Integer>();
+		testHash.put("AA",0);
+		testHash.put("BB",1);
+		testHash.put("CC",2);
+		testHash.put("DD",3);
+		testHash.put("EE",4);
+		String allNames[] = new String [5];
+		
+		//See keys and values
+		//System.out.println(testHash.entrySet());
+		
+		allNames = g.getKeys(testHash, 1);
+		
+		assertEquals(allNames[0],"AA");
+		assertEquals(allNames[1],"BB");
+		assertEquals(allNames[2],"CC");
+		assertEquals(allNames[3],"DD");
+		assertEquals(allNames[4],"EE");
+		System.out.println("Test11 Passed");
+		
+
+    }
+	
+	@Test
+    public void test12()  throws FileNotFoundException
+    {
+		
+	//Test 12 By Nic Fornicola
+	System.out.println("\n-----TEST12------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		
+		HashMap<String, Integer> testHash = new HashMap<String, Integer>();
+		testHash.put("CC",0);
+		testHash.put("EE",0);
+		testHash.put("AA",0);
+		testHash.put("DD",0);
+		testHash.put("BB",0);
+		String allNames[] = new String [5];
+		
+		//See keys and values
+		//System.out.println(testHash.entrySet());
+		
+		allNames = g.getKeys(testHash, 0);
+		
+		assertEquals(allNames[0],"CC");
+		assertEquals(allNames[1],"EE");
+		assertEquals(allNames[2],"AA");
+		assertEquals(allNames[3],"DD");
+		assertEquals(allNames[4],"BB");
+		System.out.println("Test12 Passed");	
 
     }
 }
