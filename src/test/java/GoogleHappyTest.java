@@ -1,8 +1,16 @@
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import org.junit.*;
 import java.util.*;
 import java.io.*;
+
 
 
 
@@ -12,12 +20,14 @@ import java.io.*;
  *  Task   : Do Somehting test
  ******************************************************************************/
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GoogleHappyTest
 {
     @Test
-    public void test1()  throws FileNotFoundException
+    public void atest1()  throws FileNotFoundException
     {
     	//Test 1 By Ben Lamont
+		System.out.println("\n------TEST 1------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "A,B\nB,E\nC,A,B,D,E\nD,C,E\nE,D";
@@ -44,9 +54,10 @@ public class GoogleHappyTest
     }
 
     @Test
-    public void test2()  throws FileNotFoundException
+    public void btest2()  throws FileNotFoundException
     {
     	//Test 2 By Ben Lamont
+		System.out.println("\n------TEST 2------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "Calvin,Bubba,Blinkendorfer,Suzie\nBubba,Snoopie,Donald\nBlinkendorfer,Bubba,Billy,Ivanka\nSuzie,Ivanka,Donald\nDonald,Bubba,Ivanka,Mitch\nMitch,Snoopie,Bubba,Suzie,Ivanka,Donald\nSnoopie,Bubba\nBilly,Donald,Blinkendorfer\nIvanka,Donald,Billy,Suzie";
@@ -86,9 +97,10 @@ public class GoogleHappyTest
 
     //test 3 makes sure the matrix is alligned correctly
     @Test
-    public void test3()  throws FileNotFoundException
+    public void ctest3()  throws FileNotFoundException
     {
     	//Test 3 By Nic Fornicola
+		System.out.println("\n------TEST 3------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "Calvin,Bubba,Blinkendorfer,Suzie\nBubba,Snoopie,Donald\nBlinkendorfer,Bubba,Billy,Ivanka\nSuzie,Ivanka,Donald\nDonald,Bubba,Ivanka,Mitch\nMitch,Snoopie,Bubba,Suzie,Ivanka,Donald\nSnoopie,Bubba\nBilly,Donald,Blinkendorfer\nIvanka,Donald,Billy,Suzie";
@@ -132,9 +144,10 @@ public class GoogleHappyTest
 	
     //test 4 makes sure the matrix is alligned correctly
     @Test
-    public void test4()  throws FileNotFoundException
+    public void dtest4()  throws FileNotFoundException
     {
     	//Test 4 By Nic Fornicola
+		System.out.println("\n------TEST 4------");
     	GoogleHappy g = new GoogleHappy();
 
 	//different preferences
@@ -179,9 +192,10 @@ public class GoogleHappyTest
 
     //makes sure matrix includes people who are only mentioned
     @Test
-    public void test5()  throws FileNotFoundException
+    public void etest5()  throws FileNotFoundException
     {
     	//Test 5 By Ben Lamont
+		System.out.println("\n------TEST 5------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "A,B\nB,C,D,E\nE,D,A";
@@ -208,9 +222,10 @@ public class GoogleHappyTest
 
     //test to see if it breaks with no people
     @Test
-    public void test6()  throws FileNotFoundException
+    public void ftest6()  throws FileNotFoundException
     {
     	//Test 6 By Ben Lamont
+		System.out.println("\n------TEST 6------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "";
@@ -226,9 +241,10 @@ public class GoogleHappyTest
 
     //makes sure the weighted values are entered into the array correctly
     @Test
-    public void test7()  throws FileNotFoundException
+    public void gtest7()  throws FileNotFoundException
     {
     	//Test 7 By Ben Lamont
+		System.out.println("\n------TEST 7------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "A,B,C\nB,C\nC,B,A,D";
@@ -257,9 +273,10 @@ public class GoogleHappyTest
 
     //tests to make sure you can't vote for yourself
     @Test
-    public void test8()  throws FileNotFoundException
+    public void htest8()  throws FileNotFoundException
     {
     	//Test 8 By Ben Lamont
+		System.out.println("\n------TEST 8------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "A,A,A,A\nB,B,B,B\nC,C,C,C\nD,D,D,D";
@@ -283,9 +300,10 @@ public class GoogleHappyTest
 
     //tests to make sure it doesn't break on an empty preference
     @Test
-    public void test9()  throws FileNotFoundException
+    public void itest9()  throws FileNotFoundException
     {
     	//Test 9 By Ben Lamont
+		System.out.println("\n------TEST 9------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "A,B,C\nB,C\nC,B,,D";
@@ -301,9 +319,10 @@ public class GoogleHappyTest
 
     //tests to make sure weighted prefs are distributed properly
     @Test
-    public void test10()  throws FileNotFoundException
+    public void jtest10()  throws FileNotFoundException
     {
     	//Test 10 By Ben Lamont
+		System.out.println("\n------TEST 10------");
     	GoogleHappy g = new GoogleHappy();
 
     	String prefs = "1,2,3,4,5,6,7,8,9\n2,1,3,4,5,6,7,8,9\n3,1,2,4,5,6,7,8,9\n4,1,2,3,5,6,7,8,9\n5,1,2,3,4,6,7,8,9\n6,1,2,3,4,5,7,8,9\n7,1,2,3,4,5,6,8,9\n8,1,2,3,4,5,6,7,9\n9,1,2,3,4,5,6,7,8";
@@ -322,11 +341,11 @@ public class GoogleHappyTest
     }
 	
 	@Test
-    public void test11()  throws FileNotFoundException
+    public void ktest11()  throws FileNotFoundException
     {
 		
-	//Test 11 By Nic Fornicola
-	System.out.println("TEST11");
+		//Test 11 By Nic Fornicola
+		System.out.println("\n------TEST 11------");
     	GoogleHappy g = new GoogleHappy();
 		
 		
@@ -354,11 +373,11 @@ public class GoogleHappyTest
     }
 	
 	@Test
-    public void test12()  throws FileNotFoundException
+    public void ltest12()  throws FileNotFoundException
     {
 		
-	//Test 12 By Nic Fornicola
-	System.out.println("\n-----TEST12------");
+		//Test 12 By Nic Fornicola
+		System.out.println("\n------TEST 12------");
     	GoogleHappy g = new GoogleHappy();
 		
 		
