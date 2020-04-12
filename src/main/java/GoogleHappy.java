@@ -129,33 +129,58 @@ public class GoogleHappy
 
 
 
+  public class User
+  {
+    public int pref[];
+    public int id;
+    public String name;
+
+    User(String[] p)
+    {
+      name = p[0];
+    }
+
+  }
 
 
+  public class Team
+  {
+    public int max;
+    public int current;
+    public User people[];
 
+    Team(int n, User[] people)
+    {
+      max = n;
+      int count = 0;
+      for (User temp : people)
+      {
+        people[count] = temp;
+        count ++;
+      }
+      current = count;
+    }
+  }
 
-
-
-
-
-
+  
 
 
 
 
   //primary list of people
   public int count;
-
+  public int teamsize;
   public PageRank p;
+  public User[] c;
 
   //reads from file and puts users into the people array
   private void prefs(HashMap<String, Integer> mentioned_people)
   {
     count = 0;
-
+    c = new User[10000];
     Scanner scanner = new Scanner(System.in);
 
     String[] temp = new String[10000];
-
 
     //reads lines into temp array
     while(scanner.hasNextLine())
@@ -168,7 +193,7 @@ public class GoogleHappy
 
       if(!mentioned_people.containsKey(temp2[0]))
       {
-
+        c[count] = new User(temp2);
         mentioned_people.put(temp2[0],count); 
 
       }
@@ -192,7 +217,7 @@ public class GoogleHappy
         if (!mentioned_people.containsKey(temp3[j]))
         {
           temp[count] = temp3[j];
-
+          c[count] = new User(temp2);
           mentioned_people.put(temp3[j],count); 
           count ++;
 
@@ -257,7 +282,7 @@ public class GoogleHappy
   public void primaryFunction(String w)
   {
     weighted = w;
-
+    teamsize = 0;
     //defines map
     HashMap<String, Integer> mentioned_people = new HashMap<String, Integer>();
     p = new PageRank();
