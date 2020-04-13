@@ -565,7 +565,7 @@ public class GoogleHappyTest
 		assertEquals(g.c[2].name,"C");
 		assertEquals(g.c[3].name,"D");
 		assertEquals(g.c[4].name,"");
-		assertEquals(g.c[4].name,"E");
+		assertEquals(g.c[5].name,"E");
 
 	}
 
