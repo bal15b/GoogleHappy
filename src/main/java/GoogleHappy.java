@@ -139,6 +139,10 @@ public class GoogleHappy
     {
       name = p[0];
     }
+    User(String p)
+    {
+      name = p;
+    }
 
   }
 
@@ -217,7 +221,7 @@ public class GoogleHappy
         if (!mentioned_people.containsKey(temp3[j]))
         {
           temp[count] = temp3[j];
-          c[count] = new User(temp2);
+          c[count] = new User(temp3[j]);
           mentioned_people.put(temp3[j],count); 
           count ++;
 
