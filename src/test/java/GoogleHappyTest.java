@@ -344,8 +344,8 @@ public class GoogleHappyTest
     public void ktest11()  throws FileNotFoundException
     {
 		
-		//Test 11 By Nic Fornicola
-		System.out.println("\n------TEST 11------");
+	//Test 11 By Nic Fornicola
+	System.out.println("\n------TEST 11------");
     	GoogleHappy g = new GoogleHappy();
 		
 		
@@ -367,7 +367,6 @@ public class GoogleHappyTest
 		assertEquals(allNames[2],"CC");
 		assertEquals(allNames[3],"DD");
 		assertEquals(allNames[4],"EE");
-		System.out.println("Test11 Passed");
 		
 
     }
@@ -376,30 +375,132 @@ public class GoogleHappyTest
     public void ltest12()  throws FileNotFoundException
     {
 		
-		//Test 12 By Nic Fornicola
-		System.out.println("\n------TEST 12------");
+	//Test 12 By Nic Fornicola
+	System.out.println("\n------TEST 12------");
     	GoogleHappy g = new GoogleHappy();
 		
 		
 		HashMap<String, Integer> testHash = new HashMap<String, Integer>();
-		testHash.put("CC",0);
-		testHash.put("EE",0);
-		testHash.put("AA",0);
-		testHash.put("DD",0);
-		testHash.put("BB",0);
-		String allNames[] = new String [5];
+		testHash.put("C",0);
+		testHash.put("E",1);
+		testHash.put("A",2);
+		testHash.put("D",3);
+		testHash.put("B",4);
+		String allNames[] = new String[5];
 		
 		//See keys and values
 		//System.out.println(testHash.entrySet());
 		
 		allNames = g.getKeys(testHash, 0);
 		
-		assertEquals(allNames[0],"CC");
-		assertEquals(allNames[1],"EE");
-		assertEquals(allNames[2],"AA");
-		assertEquals(allNames[3],"DD");
-		assertEquals(allNames[4],"BB");
-		System.out.println("Test12 Passed");	
+		assertEquals(allNames[0],"A");
+		assertEquals(allNames[1],"B");
+		assertEquals(allNames[2],"C");
+		assertEquals(allNames[3],"D");
+		assertEquals(allNames[4],"E");
+
+
+    }
+	
+	@Test
+    public void mtest13()  throws FileNotFoundException
+    {
+		
+	//Test 13 By Nic Fornicola
+	System.out.println("\n------TEST 13------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		
+		HashMap<String, Integer> testHash = new HashMap<String, Integer>();
+		testHash.put("1",0);
+		testHash.put("2",0);
+		testHash.put("3",0);
+		testHash.put("4",0);
+		testHash.put("5",0);
+		String allNames[] = new String[5];
+		
+		//See keys and values
+		//System.out.println(testHash.entrySet());
+		
+		allNames = g.getKeys(testHash, 0);
+		
+		assertEquals(allNames[0],"1");
+		assertEquals(allNames[1],"2");
+		assertEquals(allNames[2],"3");
+		assertEquals(allNames[3],"4");
+		assertEquals(allNames[4],"5");
+	
+
+    }
+	
+	@Test
+    public void ntest14()  throws FileNotFoundException
+    {
+		
+	//Test 14 By Nic Fornicola
+	System.out.println("\n------TEST 14------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		
+		HashMap<String, Integer> testHash = new HashMap<String, Integer>();
+		testHash.put("11",0);
+		testHash.put("22",0);
+		testHash.put("33",0);
+		testHash.put("44",0);
+		testHash.put("55",0);
+		testHash.put("66",0);
+		testHash.put("77",0);
+		testHash.put("88",0);
+		testHash.put("99",0);
+		testHash.put("100",0);
+		String allNames[] = new String[5];
+		
+		//See keys and values
+		//System.out.println(testHash.entrySet());
+		
+		allNames = g.getKeys(testHash, 0);
+		
+		assertEquals(allNames[0],"11");
+		assertEquals(allNames[1],"22");
+		assertEquals(allNames[2],"33");
+		assertEquals(allNames[3],"44");
+		assertEquals(allNames[4],"55");
+		assertEquals(allNames[5],"66");
+		assertEquals(allNames[6],"77");
+		assertEquals(allNames[7],"88");
+		assertEquals(allNames[8],"99");
+		assertEquals(allNames[9],"100");	
+
+    }
+	
+		@Test
+    public void otest15()  throws FileNotFoundException
+    {
+		
+	//Test 15 By Nic Fornicola
+	System.out.println("\n------TEST 15------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		
+		HashMap<String, Integer> testHash = new HashMap<String, Integer>();
+		testHash.put("a",0);
+		testHash.put("e",1);
+		testHash.put("h",2);
+		testHash.put("k",3);
+		testHash.put("n",4);
+
+		String allNames[] = new String[5];
+		
+		//See keys and values
+		//System.out.println(testHash.entrySet());
+		
+		allNames = g.getKeys(testHash, 0);
+		
+		assertEquals(allNames[0],"a");
+		assertEquals(allNames[1],"e");
+		assertEquals(allNames[2],"h");
+		assertEquals(allNames[3],"k");
+		assertEquals(allNames[4],"n");	
 
     }
 }
