@@ -131,17 +131,21 @@ public class GoogleHappy
 
   public class User
   {
-    public int pref[];
+    public int total_prefs;
     public int id;
     public String name;
 
-    User(String[] p)
+    User(String[] p, int i)
     {
       name = p[0];
+      total_prefs = p.length - 1;
+      id = i;
     }
-    User(String p)
+    User(String p, int i)
     {
       name = p;
+      id = i;
+      total_prefs = 0;
     }
 
   }
@@ -197,7 +201,7 @@ public class GoogleHappy
 
       if(!mentioned_people.containsKey(temp2[0]))
       {
-        c[count] = new User(temp2);
+        c[count] = new User(temp2, count + 1);
         mentioned_people.put(temp2[0],count); 
 
       }
@@ -221,7 +225,7 @@ public class GoogleHappy
         if (!mentioned_people.containsKey(temp3[j]))
         {
           temp[count] = temp3[j];
-          c[count] = new User(temp3[j]);
+          c[count] = new User(temp3[j], count + 1);
           mentioned_people.put(temp3[j],count); 
           count ++;
 
