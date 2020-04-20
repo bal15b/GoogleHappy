@@ -1,7 +1,8 @@
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
-import java.util.Arrays;
+import java.util.Arrays;	
+import java.util.Scanner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.*;
@@ -23,13 +24,14 @@ import java.io.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GoogleHappyTest
 {
-    @Test
+	
+	@Test
     public void atest1()  throws FileNotFoundException
     {
     	//Test 1 By Ben Lamont
 		System.out.println("\n------TEST 1------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;
     	String prefs = "A,B\nB,E\nC,A,B,D,E\nD,C,E\nE,D";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -53,13 +55,14 @@ public class GoogleHappyTest
         assertEquals(t,49);
     }
 
+
     @Test
     public void btest2()  throws FileNotFoundException
     {
     	//Test 2 By Ben Lamont
 		System.out.println("\n------TEST 2------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;
     	String prefs = "Calvin,Bubba,Blinkendorfer,Suzie\nBubba,Snoopie,Donald\nBlinkendorfer,Bubba,Billy,Ivanka\nSuzie,Ivanka,Donald\nDonald,Bubba,Ivanka,Mitch\nMitch,Snoopie,Bubba,Suzie,Ivanka,Donald\nSnoopie,Bubba\nBilly,Donald,Blinkendorfer\nIvanka,Donald,Billy,Suzie";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -102,7 +105,7 @@ public class GoogleHappyTest
     	//Test 3 By Nic Fornicola
 		System.out.println("\n------TEST 3------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;
     	String prefs = "Calvin,Bubba,Blinkendorfer,Suzie\nBubba,Snoopie,Donald\nBlinkendorfer,Bubba,Billy,Ivanka\nSuzie,Ivanka,Donald\nDonald,Bubba,Ivanka,Mitch\nMitch,Snoopie,Bubba,Suzie,Ivanka,Donald\nSnoopie,Bubba\nBilly,Donald,Blinkendorfer\nIvanka,Donald,Billy,Suzie";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -152,7 +155,7 @@ public class GoogleHappyTest
 
 	//different preferences
     	String prefs = "Calvin,Bubba,Suzie,Billy,Ivanka,Snoopie,Donald\nBubba,Snoopie,Suzie,Donald,Billy,\nBlinkendorfer,Billy,Ivanka\nSuzie,Donald,Blinkendorfer,Bubba\nDonald,Bubba,Ivanka,Mitch\nMitch,Bubba,Suzie,Ivanka,Donald\nSnoopie,Bubba\nBilly,Donald,Blinkendorfer,Snoopie\nIvanka,Donald,Suzie";
-
+		g.test = 1;
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
@@ -197,7 +200,7 @@ public class GoogleHappyTest
     	//Test 5 By Ben Lamont
 		System.out.println("\n------TEST 5------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;
     	String prefs = "A,B\nB,C,D,E\nE,D,A";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -220,14 +223,13 @@ public class GoogleHappyTest
     }
 
 
-    //test to see if it breaks with no people
-    @Test
+	@Test
     public void ftest6()  throws FileNotFoundException
     {
     	//Test 6 By Ben Lamont
 		System.out.println("\n------TEST 6------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;
     	String prefs = "";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -240,13 +242,13 @@ public class GoogleHappyTest
     }
 
     //makes sure the weighted values are entered into the array correctly
-    @Test
+     @Test
     public void gtest7()  throws FileNotFoundException
     {
     	//Test 7 By Ben Lamont
 		System.out.println("\n------TEST 7------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;
     	String prefs = "A,B,C\nB,C\nC,B,A,D";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -275,10 +277,11 @@ public class GoogleHappyTest
     @Test
     public void htest8()  throws FileNotFoundException
     {
+		
     	//Test 8 By Ben Lamont
 		System.out.println("\n------TEST 8------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;		
     	String prefs = "A,A,A,A\nB,B,B,B\nC,C,C,C\nD,D,D,D";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -305,7 +308,7 @@ public class GoogleHappyTest
     	//Test 9 By Ben Lamont
 		System.out.println("\n------TEST 9------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;
     	String prefs = "A,B,C\nB,C\nC,B,,D";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -324,7 +327,7 @@ public class GoogleHappyTest
     	//Test 10 By Ben Lamont
 		System.out.println("\n------TEST 10------");
     	GoogleHappy g = new GoogleHappy();
-
+		g.test = 1;
     	String prefs = "1,2,3,4,5,6,7,8,9\n2,1,3,4,5,6,7,8,9\n3,1,2,4,5,6,7,8,9\n4,1,2,3,5,6,7,8,9\n5,1,2,3,4,6,7,8,9\n6,1,2,3,4,5,7,8,9\n7,1,2,3,4,5,6,8,9\n8,1,2,3,4,5,6,7,9\n9,1,2,3,4,5,6,7,8";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
@@ -347,7 +350,6 @@ public class GoogleHappyTest
 	//Test 11 By Nic Fornicola
 	System.out.println("\n------TEST 11------");
     	GoogleHappy g = new GoogleHappy();
-		
 		
 		HashMap<String, Integer> testHash = new HashMap<String, Integer>();
 		testHash.put("AA",0);
@@ -402,10 +404,10 @@ public class GoogleHappyTest
 
     }
 	
-    @Test
+	@Test
     public void mtest13()  throws FileNotFoundException
     {
-		
+	
 	//Test 13 By Nic Fornicola
 	System.out.println("\n------TEST 13------");
     	GoogleHappy g = new GoogleHappy();
@@ -473,7 +475,7 @@ public class GoogleHappyTest
 
     }
 	
-		@Test
+	@Test
     public void otest15()  throws FileNotFoundException
     {
 		
@@ -504,17 +506,18 @@ public class GoogleHappyTest
 
     }
 
+	
 	@Test
-    	public void ptest16()  throws FileNotFoundException
-    	{
+    public void ptest16()  throws FileNotFoundException
+    {
 		//test 16 by Ben Lamont
 		System.out.println("\n------TEST 16------");
-    		GoogleHappy g = new GoogleHappy();
-
+    	GoogleHappy g = new GoogleHappy();
+		g.test = 1;
 		String prefs = "A,A,A,A\nB,B,B,B\nC,C,C,C\nD,D,D,D";
 
-    		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        	System.setIn(in);
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
 
 		g.primaryFunction("f");
 
@@ -524,20 +527,20 @@ public class GoogleHappyTest
 		assertEquals(g.c[3].name,"D");
 
 	}
-
+	
 	@Test
-    	public void qtest17()  throws FileNotFoundException
-    	{
+    public void qest17()  throws FileNotFoundException
+    {
 		//test 16 by Ben Lamont
 		System.out.println("\n------TEST 17------");
-    		GoogleHappy g = new GoogleHappy();
-
+    	GoogleHappy g = new GoogleHappy();
+		g.test = 1;
 		String prefs = "A,A,A,A\nB,B,B,B\nC,C,C,D\nE,E,E,E";
 
-    		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        	System.setIn(in);
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
 
-        	g.primaryFunction("f");
+        g.primaryFunction("f");
 
 		assertEquals(g.c[0].name,"A");
 		assertEquals(g.c[1].name,"B");
@@ -547,18 +550,18 @@ public class GoogleHappyTest
 	}
 
 	@Test
-    	public void rtest18()  throws FileNotFoundException
-    	{
+    public void rtest18()  throws FileNotFoundException
+    {
 		//test 16 by Ben Lamont
 		System.out.println("\n------TEST 18------");
-    		GoogleHappy g = new GoogleHappy();
-
+    	GoogleHappy g = new GoogleHappy();
+		g.test = 1;
 		String prefs = "A,A,A,A\nB,B,B,B\nC,C,,E\nD,D,D,D";
 
-    		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        	System.setIn(in);
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
 
-        	g.primaryFunction("f");
+        g.primaryFunction("f");
 
 		assertEquals(g.c[0].name,"A");
 		assertEquals(g.c[1].name,"B");
@@ -570,36 +573,36 @@ public class GoogleHappyTest
 	}
 
 	@Test
-    	public void stest19()  throws FileNotFoundException
-    	{
+    public void stest19()  throws FileNotFoundException
+    {
 		//test 16 by Ben Lamont
 		System.out.println("\n------TEST 19------");
-    		GoogleHappy g = new GoogleHappy();
-
+    	GoogleHappy g = new GoogleHappy();
+		g.test = 1;
 		String prefs = "B,A";
 
-    		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        	System.setIn(in);
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
 
-        	g.primaryFunction("f");
+        g.primaryFunction("f");
 
 		assertEquals(g.c[0].name,"B");
 		assertEquals(g.c[1].name,"A");
 	}
 
 	@Test
-    	public void ttest20()  throws FileNotFoundException
-    	{
+    public void ttest20()  throws FileNotFoundException
+    {
 		//test 20 by Ben Lamont
 		System.out.println("\n------TEST 20------");
-    		GoogleHappy g = new GoogleHappy();
-
+    	GoogleHappy g = new GoogleHappy();
+		g.test = 1;
 		String prefs = "A,BC\nB,C\nC,A";
 
-    		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        	System.setIn(in);
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
 
-        	g.primaryFunction("f");
+        g.primaryFunction("f");
 
 		assertEquals(g.c[0].name,"A");
 		assertEquals(g.c[1].name,"B");
@@ -609,16 +612,16 @@ public class GoogleHappyTest
 	}
 	
 	@Test
-	public void test21()  throws FileNotFoundException
+	public void utest21()  throws FileNotFoundException
     {
 		//test 21 by Nic
 		System.out.println("\n------TEST 21------");
-    		GoogleHappy g = new GoogleHappy();
+    	GoogleHappy g = new GoogleHappy();
 		
 		String prefs = "Nic,Eden,Jane,Xander\nAshley,Mya,Xander\nXander,Gerry,Nic,Mya\nMya,Xander,Josh,Eden\nEden,Nic,Ashley,Mya\nJosh,Carter,Jane\nCarter,Josh,Mya,Ashley\nJane,Ashley,Eden\nGerry,Nic,Mya,Carter";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-       		System.setIn(in);
+        System.setIn(in);
 		
 		g.primaryFunction("f");
 		assertEquals(g.teams[0].name,"Nic");
@@ -634,16 +637,16 @@ public class GoogleHappyTest
 	}
 	
 	@Test
-	public void test22()  throws FileNotFoundException
+	public void vtest22()  throws FileNotFoundException
     {
 		//test 22 by Nic
 		System.out.println("\n------TEST 22------");
-    		GoogleHappy g = new GoogleHappy();
+    	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Jane,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Nic,Ashley,Mya\nJosh,Carter,Jane\nCarter,Josh,Mya,Ashley\nJane,Ashley,Nic\nGerry,Carter,Mya,Josh";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        	System.setIn(in);
+        System.setIn(in);
 		
 		g.primaryFunction("f");
 		assertEquals(g.teams[0].name,"Nic");
@@ -659,16 +662,16 @@ public class GoogleHappyTest
 	}
 	
 	@Test
-	public void test23()  throws FileNotFoundException
+	public void wtest23()  throws FileNotFoundException
     {
 		//test 23 by Nic
 		System.out.println("\n------TEST 23------");
-    		GoogleHappy g = new GoogleHappy();
+    	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        	System.setIn(in);
+        System.setIn(in);
 		
 		g.primaryFunction("f");
 		assertEquals(g.teams[0].name,"Nic");
@@ -684,16 +687,16 @@ public class GoogleHappyTest
 	}
 	
 	@Test
-	public void test24()  throws FileNotFoundException
+	public void xtest24()  throws FileNotFoundException
     {
 		//test 24 by Nic
 		System.out.println("\n------TEST 24------");
-    		GoogleHappy g = new GoogleHappy();
+    	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        	System.setIn(in);
+        System.setIn(in);
 		
 		g.primaryFunction("f");
 		
@@ -705,16 +708,16 @@ public class GoogleHappyTest
 	}
 	
 	@Test
-	public void test25()  throws FileNotFoundException
+	public void ytest25()  throws FileNotFoundException
     {
 		//test 25 by Nic
 		System.out.println("\n------TEST 25------");
-    		GoogleHappy g = new GoogleHappy();
+    	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-       		System.setIn(in);
+        System.setIn(in);
 		
 		g.primaryFunction("f");	
 		
@@ -724,4 +727,105 @@ public class GoogleHappyTest
 		assertEquals(g.getUserInfo("Carter"),7);
 
 	}
+	
+	@Test
+	public void ztest26()  throws FileNotFoundException
+    {
+		//test 26 by Ben
+		System.out.println("\n------TEST 26------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+
+		assertEquals(g.getUserInfo("C"),3);
+
+		
+	}
+
+	@Test
+	public void ztest27()  throws FileNotFoundException
+    {
+		//test 27 by Nic
+		System.out.println("\n------TEST 27------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+
+		assertEquals(g.getUserInfo("E"),9);
+
+		
+	}
+
+	@Test
+	public void ztest28()  throws FileNotFoundException
+    {
+		//test 28 by Nic
+		System.out.println("\n------TEST 28------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+
+		assertEquals(g.getUserInfo("F"),4);
+		
+	}
+
+	@Test
+	public void ztest29()  throws FileNotFoundException
+    {
+		//test 29 by Nic
+		System.out.println("\n------TEST 29------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+
+
+		assertEquals(g.getUserInfo("B"),7);
+		
+	}
+
+	@Test
+	public void ztest30()  throws FileNotFoundException
+    {
+		//test 26 by Nic
+		System.out.println("\n------TEST 30------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+
+		assertEquals(g.getUserInfo("G"),-1);
+		assertEquals(g.getUserInfo("H"),5);
+		assertEquals(g.getUserInfo("I"),6);
+		assertEquals(g.getUserInfo("J"),8);
+
+
+
+		
+	}
+	
 }
+
