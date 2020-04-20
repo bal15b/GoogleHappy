@@ -217,6 +217,132 @@ public class GoogleHappy
   public PageRank p;
   public User[] c;
 
+	public User[] teams;
+	private User[] fillTeams(User[] users)
+	{
+		
+		teams = new User[count];
+		//fill the first spots of the teams	
+		for(int i = 0; i < count/teamsize; i++)
+			teams[i*count/teamsize] = users[i];
+			
+		boolean found = false;
+		//give the first people their preferences and then the seconds picks theirs so on...
+		for(int n = 0; n < teamsize-1; n++)
+		{	
+			for(int i = 0, choice = 1; i < count/teamsize; i++)
+			{	
+				while(found == false)
+				{	if(!(Arrays.asList(teams).contains(getThisUser(users, teams[i*teamsize+n].pref[choice]))))
+					{	teams[i*teamsize+n+1] = getThisUser(users, teams[i*teamsize+n].pref[choice]);
+						found = true;
+					}
+					else if(choice + 1 < teams[i*teamsize+1].pref.length && (!(Arrays.asList(teams).contains(getThisUser(users, teams[i*teamsize+n].pref[choice+1])))))
+					{	teams[i*teamsize+n+1] = getThisUser(users, teams[i*teamsize+n].pref[choice+1]);
+						found = true;
+					}
+					else if(choice + 1 < teams[i*teamsize+1].pref.length)
+						choice++;
+					else
+						found = true;
+				}	
+				found = false;
+				choice=1;
+			}
+		}
+		
+		User[] temp = new User[count];
+		//find those who didnt get places
+		int n = 0;
+		for(int i = 0; i < teams.length; i++)
+			if(!(Arrays.asList(teams).contains(getThisUser(users, users[i].name))))
+			{	
+				temp[n] = users[i];
+				n++;
+			}	
+		
+		User[] cut = new User[n];
+		
+		for(int i = 0; i < cut.length; i++)
+		{	
+			cut[i] = temp[i];
+		}
+		
+		//fill the empty spots with NothingHere
+		System.out.println(" ");
+		User fnUser1 = new User("NothingHere", -1);
+		for(int i = 0; i < teams.length; i++)
+		{	if(teams[i] == null)
+				teams[i] = fnUser1;
+				
+			System.out.println(i + ": " + teams[i].name);
+		}
+		
+		//smallTeams are teams of teamSize and are just 1 team at a time instead of one big array
+		User[] smallTeams = new User[teamsize];
+		System.arraycopy(teams, 0*teamsize, smallTeams, 0, teamsize);
+		 
+			 
+		//go through all prefs on all small teams and on all cut if any cut.pref matches a person in a team put them on that team
+		for(int t = 0; t < count/teamsize; t++)
+		{	
+			System.arraycopy(teams, t*teamsize, smallTeams, 0, teamsize);
+			if(Arrays.asList(smallTeams).contains(fnUser1))
+			{	
+				for(int i = 0; i < cut.length; i++)
+				{	
+					prefLoop:
+					for(int a = 1; a < cut[i].pref.length; a++)
+					{	
+						for(int p = 0; p < smallTeams.length; p++)
+						{	
+							if(cut[i].pref[a].equals(smallTeams[p].name))
+							{	
+								for(int x = 0; x < smallTeams.length; x++)
+								{	
+									if(smallTeams[x].name.equals("NothingHere"))
+									{	
+										smallTeams[x] = cut[i];
+
+										User[] tempCut = new User[cut.length];
+										int l = 0;
+										for(int h = 0; h < cut.length; h++)
+											if(!(Arrays.asList(smallTeams).contains(getThisUser(users, cut[h].name))))
+											{	
+												tempCut[l] = getThisUser(users, cut[h].name);
+												l++;
+											}
+						
+										for(int h = 0; h < tempCut.length; h++)
+										{	
+											if(tempCut[h] == null)
+													tempCut[h] = fnUser1;
+											cut[h] = tempCut[h];
+
+										}
+											
+										System.arraycopy(smallTeams, 0, teams, t*teamsize, teamsize);
+
+										break prefLoop;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		//puts the reaming people that didnt get a spot on to an empty team
+		for(int i = 0, p = 0; i < teams.length; i++)
+			if(teams[i].name.equals("NothingHere"))
+				teams[i] = cut[p];
+				
+		printTeams(teams);
+
+		return teams;
+		
+	}
 	
 	private User getThisUser(User[] list, String name)
 	{
