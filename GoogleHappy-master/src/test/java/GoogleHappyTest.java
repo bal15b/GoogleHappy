@@ -607,4 +607,121 @@ public class GoogleHappyTest
 		assertEquals(g.c[3].name,"BC");
 
 	}
+	
+@Test
+	public void test21()  throws FileNotFoundException
+    {
+		//test 21 by Nic
+		System.out.println("\n------TEST 21------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		String prefs = "Nic,Eden,Jane,Xander\nAshley,Mya,Xander\nXander,Gerry,Nic,Mya\nMya,Xander,Josh,Eden\nEden,Nic,Ashley,Mya\nJosh,Carter,Jane\nCarter,Josh,Mya,Ashley\nJane,Ashley,Eden\nGerry,Nic,Mya,Carter";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+		assertEquals(g.teams[0].name,"Nic");
+		assertEquals(g.teams[1].name,"Eden");
+		assertEquals(g.teams[2].name,"Jane");
+		assertEquals(g.teams[3].name,"Ashley");
+		assertEquals(g.teams[4].name,"Mya");
+		assertEquals(g.teams[5].name,"Josh");
+		assertEquals(g.teams[6].name,"Xander");
+		assertEquals(g.teams[7].name,"Gerry");
+		assertEquals(g.teams[8].name,"Carter");
+		
+	}
+	
+	@Test
+	public void test22()  throws FileNotFoundException
+    {
+		//test 22 by Nic
+		System.out.println("\n------TEST 22------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Jane,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Nic,Ashley,Mya\nJosh,Carter,Jane\nCarter,Josh,Mya,Ashley\nJane,Ashley,Nic\nGerry,Carter,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+		assertEquals(g.teams[0].name,"Nic");
+		assertEquals(g.teams[1].name,"Jane");
+		assertEquals(g.teams[2].name,"Josh");
+		assertEquals(g.teams[3].name,"Ashley");
+		assertEquals(g.teams[4].name,"Mya");
+		assertEquals(g.teams[5].name,"Eden");
+		assertEquals(g.teams[6].name,"Xander");
+		assertEquals(g.teams[7].name,"Gerry");
+		assertEquals(g.teams[8].name,"Carter");
+
+	}
+	
+	@Test
+	public void test23()  throws FileNotFoundException
+    {
+		//test 23 by Nic
+		System.out.println("\n------TEST 23------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+		assertEquals(g.teams[0].name,"Nic");
+		assertEquals(g.teams[1].name,"Carter");
+		assertEquals(g.teams[2].name,"Jane");
+		assertEquals(g.teams[3].name,"Ashley");
+		assertEquals(g.teams[4].name,"Mya");
+		assertEquals(g.teams[5].name,"Eden");
+		assertEquals(g.teams[6].name,"Xander");
+		assertEquals(g.teams[7].name,"Gerry");
+		assertEquals(g.teams[8].name,"Josh");
+
+	}
+	
+	@Test
+	public void test24()  throws FileNotFoundException
+    {
+		//test 24 by Nic
+		System.out.println("\n------TEST 24------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");
+		
+		assertEquals(g.getUserInfo("Nic"),1);
+		assertEquals(g.getUserInfo("Eden"),5);
+		assertEquals(g.getUserInfo("Ashley"),2);
+		
+
+	}
+	
+	@Test
+	public void test25()  throws FileNotFoundException
+    {
+		//test 25 by Nic
+		System.out.println("\n------TEST 25------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");	
+		
+		assertEquals(g.getUserInfo("Xander"),3);
+		assertEquals(g.getUserInfo("Gerry"),9);
+		assertEquals(g.getUserInfo("Mya"),4);
+		assertEquals(g.getUserInfo("Carter"),7);
+
+	}
 }
