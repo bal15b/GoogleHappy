@@ -130,25 +130,61 @@ public class GoogleHappy
 
 
   public class User
-  {
-    public int total_prefs;
-    public int id;
-    public String name;
+	{
+		public int total_prefs;
+		public int id;
+		public String name;
+		public String pref[];
+		public double happiness;
 
-    User(String[] p, int i)
-    {
-      name = p[0];
-      total_prefs = p.length - 1;
-      id = i;
-    }
-    User(String p, int i)
-    {
-      name = p;
-      id = i;
-      total_prefs = 0;
-    }
+		//set user
+		User(String[] p, int i)
+		{
+			name = p[0];
+			
+			total_prefs = p.length - 1;
+			id = i;
+			
+			pref = new String[p.length];
+			pref[0] = p[0];
+			//fill this user with their preferences
+			for(int j = 1; j < p.length; j++) 
+				pref[j] = p[j];
+			
+		}
+		//set user
+		User(String p, int i)
+		{
+			name = p;
+			id = i;
+			total_prefs = 0;
+			pref = new String[1];
+			pref[0] = p;
+		}
+		
+		//print users info
+		public void printUserInfo()
+		{
+			System.out.println("\nName: " + name);
+			System.out.println("ID: " + id);
+			System.out.println("Happiness: " + happiness);
+			System.out.println("TotalPrefs: " + total_prefs);
+			System.out.printf("Prefs: ");
+			if(pref.length > 1)
+				for(int j = 1; j < pref.length; j++) 
+					System.out.printf(pref[j] + " ");
+					
+			System.out.println("");
+			System.out.println("------");
+		}	
+		
+		//print users info
+		public void setHappiness(double n)
+		{
+			happiness = n;
+		}
 
-  }
+	}
 
 
   public class Team
