@@ -15,7 +15,7 @@ public class GoogleHappy
 {
 
 	private String weighted;
-
+	public int test = 0;
 	public double getMath(double n, int choice)
 	{
 		if (weighted == "t")
@@ -132,7 +132,8 @@ public class GoogleHappy
 		public String name;
 		public String pref[];
 		public double happiness;
-
+		
+		
 		//set user
 		User(String[] p, int i)
 		{
@@ -159,7 +160,7 @@ public class GoogleHappy
 		}
 		
 		//print users info
-		public void printUserInfo()
+		public int printUserInfo()
 		{
 			System.out.println("\nName: " + name);
 			System.out.println("ID: " + id);
@@ -172,6 +173,7 @@ public class GoogleHappy
 					
 			System.out.println("");
 			System.out.println("------");
+			return id;
 		}	
 		
 		//print users info
@@ -182,6 +184,8 @@ public class GoogleHappy
 
 	}
 
+
+	
 	//primary list of people
 	public int count; //amount of people
 	public int teamsize;
@@ -189,13 +193,14 @@ public class GoogleHappy
 	public User[] c;
 	
 	//testing
-	public void getUserInfo(String userName)
+	public int getUserInfo(String userName)
 	{
 		for(int i = 0; i < 9; i++)
 		{
 			if(c[i].name.equals(userName))
-				c[i].printUserInfo();
+				return c[i].printUserInfo();
 		}
+		return -1;
 		
 	}
 	
@@ -224,7 +229,7 @@ public class GoogleHappy
 	
 	
 	public User[] teams;
-	private User[] fillTeams(User[] users)
+	public User[] fillTeams(User[] users)
 	{
 		
 		teams = new User[count];
@@ -256,7 +261,6 @@ public class GoogleHappy
 				choice=1;
 			}
 		}
-		printTeams(teams);
 		
 		User[] temp = new User[count];
 		//find those who didnt get places
@@ -276,13 +280,11 @@ public class GoogleHappy
 		}
 		
 		//fill the empty spots with NothingHere
-		System.out.println(" ");
 		User fnUser1 = new User("NothingHere", -1);
 		for(int i = 0; i < teams.length; i++)
 		{	if(teams[i] == null)
 				teams[i] = fnUser1;
 				
-			System.out.println(i + ": " + teams[i].name);
 		}
 		
 		//smallTeams are teams of teamSize and are just 1 team at a time instead of one big array
@@ -340,17 +342,12 @@ public class GoogleHappy
 			}
 		}
 		
-		//put carter on a list because hes gerrys preference
-		for(int i = 0, p = 0; i < cut.length; i++)
-			System.out.println(cut[i].name);
-		
 		//puts the reaming people that didnt get a spot on to an empty team
 		for(int i = 0, p = 0; i < teams.length; i++)
 			if(teams[i].name.equals("NothingHere"))
 				teams[i] = cut[p];
-				
-		//go through array and put the remaining people that didnt get put in to a team, in a team that adds happiness
-		//if no team adds happiness then whatever team, doesnt matter
+			
+
 		printTeams(teams);
 
 		return teams;
@@ -482,9 +479,12 @@ public class GoogleHappy
 		//runs page rank
 		p.calc(count);
 		
+		getKeys(mentioned_people, 0);
 		
 		//orderByPR(c);
-		fillTeams(c);
+		if(test == 0)
+			fillTeams(c);
+		
 		
 		//printTeams(c);
 
@@ -500,6 +500,42 @@ public class GoogleHappy
 			//creates the main GoogleHappy object and runs primaryFunction
 			new GoogleHappy().primaryFunction(args[0]);
 	  }
+	  
+	    //send in the hashmap,0 to just set an array send in hashmap,1 to output a set of teams
+  public static String[] getKeys(HashMap<String, Integer> hash, int onOff)
+  {
+	  
+	//Makes an array of just the names of people
+	String allNames[] = new String [hash.size()];
+	int i = 0;
+	for (String key : hash.keySet()) 
+	{
+		allNames[i] = key;
+		i++;
+	}
+
+	if(onOff == 1)
+	{
+		//print out the names and divide them into groups of 3
+		System.out.println("\nTEAMS\n-------");
+		i = 1;
+		for( int n = 0; n < allNames.length; n++)
+		{
+			if(n%3==0)
+			{
+				if(n!=0&&n!=1)
+					System.out.print("\n");
+				System.out.println("Team " + (i));
+				i++;
+			}
+			
+			System.out.println(allNames[n]);
+		} 
+	}
+	 
+	//returns an array of names
+	return allNames;
+  }
 	  
 	  
 	  public void printTeams(User[] users)
@@ -523,5 +559,4 @@ public class GoogleHappy
 			System.out.println(users[n].name);
 		}
 	  }
-  
 }
