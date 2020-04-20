@@ -347,8 +347,7 @@ public class GoogleHappy
     //loads the users and their prefs
     prefs(mentioned_people);
 
-    //returns an array of all the names and outputs them into teams of 3 
-    getKeys(mentioned_people, 0);
+
     
     //runs page rank
     p.calc(count);
@@ -366,26 +365,16 @@ public class GoogleHappy
     new GoogleHappy().primaryFunction(args[0]);
   }
   
-  //send in the hashmap,0 to just set an array send in hashmap,1 to output a set of teams
-  public static String[] getKeys(HashMap<String, Integer> hash, int onOff)
-  {
-	  
-	//Makes an array of just the names of people
-	String allNames[] = new String [hash.size()];
-	int i = 0;
-	for (String key : hash.keySet()) 
-	{
-		allNames[i] = key;
-		i++;
-	}
-
-	if(onOff == 1)
-	{
+  	public void printTeams(User[] users)
+	  {
+		User fnUser = new User("NothingHere", -1);
 		//print out the names and divide them into groups of 3
 		System.out.println("\nTEAMS\n-------");
-		i = 1;
-		for( int n = 0; n < allNames.length; n++)
+		int i = 1;
+		for( int n = 0; n < 9; n++)
 		{
+			if(users[n] == null)
+				users[n] = fnUser;
 			if(n%3==0)
 			{
 				if(n!=0&&n!=1)
@@ -393,13 +382,9 @@ public class GoogleHappy
 				System.out.println("Team " + (i));
 				i++;
 			}
-			
-			System.out.println(allNames[n]);
-		} 
-	}
-	 
-	//returns an array of names
-	return allNames;
-  }
+					
+			System.out.println(users[n].name);
+		}
+	  }
   
 }
