@@ -217,6 +217,19 @@ public class GoogleHappy
   public PageRank p;
   public User[] c;
 
+	
+	private User getThisUser(User[] list, String name)
+	{
+		for(int i = 0; i < list.length; i++)
+		{
+			if(list[i].name.equals(name))
+				return list[i];
+		}
+		
+		User fnUser = new User("getThisUserBroken", -1);
+		return fnUser;
+	}
+	
   //reads from file and puts users into the people array
   private void prefs(HashMap<String, Integer> mentioned_people)
   {
