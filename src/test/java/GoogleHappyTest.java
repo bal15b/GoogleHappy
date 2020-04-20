@@ -23,6 +23,7 @@ import java.io.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GoogleHappyTest
 {
+	/*
     @Test
     public void atest1()  throws FileNotFoundException
     {
@@ -586,7 +587,7 @@ public class GoogleHappyTest
 		assertEquals(g.c[0].name,"B");
 		assertEquals(g.c[1].name,"A");
 	}
-
+	*/
 	@Test
     public void ttest20()  throws FileNotFoundException
     {
@@ -594,17 +595,13 @@ public class GoogleHappyTest
 		System.out.println("\n------TEST 20------");
     	GoogleHappy g = new GoogleHappy();
 
-		String prefs = "A,BC\nB,C\nC,A";
+		String prefs = "A,B,C\nB,A\nC,B,D,A\nD,E,C,B\nE,F,G,H,D\nF,H\nG,E,J\nH,I,A,B,L\nI,L\nJ,L,A\nK,B,C,G\nL,A,J,K";
 
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
         g.primaryFunction("f");
 
-		assertEquals(g.c[0].name,"A");
-		assertEquals(g.c[1].name,"B");
-		assertEquals(g.c[2].name,"C");
-		assertEquals(g.c[3].name,"BC");
 
 	}
 }

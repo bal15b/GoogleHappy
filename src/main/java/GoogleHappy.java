@@ -12,12 +12,9 @@ import java.io.*;
  ******************************************************************************/
 public class GoogleHappy 
 {
-
-  private String weighted;
-
   public double getMath(double n, int choice)
   {
-    if (weighted == "t")
+    if (1==1)
     {
       int count = 0;
 
@@ -29,7 +26,7 @@ public class GoogleHappy
     }
 
     return 1/n;
-    
+
   }
 
 
@@ -42,7 +39,7 @@ public class GoogleHappy
       
     double InitialPageRank;
     double OutgoingLinks=0; 
-    double DampingFactor = 0.85; 
+    double DampingFactor = 1; 
     double TempPageRank[] = new double[10000];
 
     int ExternalNodeNumber;
@@ -129,17 +126,38 @@ public class GoogleHappy
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   public class User
   {
     public int total_prefs;
     public int id;
+    public double rank;
     public String name;
+    public String pref[];
 
     User(String[] p, int i)
     {
       name = p[0];
       total_prefs = p.length - 1;
       id = i;
+      pref = new String [10];
+      for (int j = 1; j < p.length; j++)
+      {
+        pref[j-1] = p[j];
+      }
     }
     User(String p, int i)
     {
@@ -161,6 +179,7 @@ public class GoogleHappy
     {
       max = n;
       int count = 0;
+      people = new User[max];
       for (User temp : people)
       {
         people[count] = temp;
@@ -168,9 +187,44 @@ public class GoogleHappy
       }
       current = count;
     }
+    Team(int n)
+    {
+      max = n;
+      current = 0;
+    }
+
+    public void addUsers(User[] u, int n)
+    {
+      for (int i = 0; i < n; i++)
+      {
+        current++;
+        people[current] = u[i];
+      }
+    }
   }
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -180,6 +234,10 @@ public class GoogleHappy
   public int teamsize;
   public PageRank p;
   public User[] c;
+  public User[] ordered;
+  public HashMap<String, Integer> mentioned_people = new HashMap<String, Integer>();
+  public Team[] officialTeams;
+
 
   //reads from file and puts users into the people array
   private void prefs(HashMap<String, Integer> mentioned_people)
@@ -252,10 +310,7 @@ public class GoogleHappy
       {
         int t = mentioned_people.get(temp3[j]);
         p.path[i+1][t+1] = 1;
-        if (weighted == "t")
-        {
-          p.path[i+1][t+1] = j+1;
-        }
+        p.path[i+1][t+1] = j+1;
 
       }
     }
@@ -286,35 +341,333 @@ public class GoogleHappy
 
     scanner.close();
   }
-  
-  public void primaryFunction(String w)
+
+  private int getHappiness(User[] u, int n)
   {
-    weighted = w;
-    teamsize = 0;
+    double hap = 0;
+
+    int[] den = {1,1,3,6,10,15,21};
+
+    for(int i = 0; i < n; i++)
+    {
+      for(int j = 0; j < n; j++)
+      {
+        if (p.path[i+1][j+1] != 0)
+        {
+          hap += ((u[i].total_prefs - p.path[i+1][j+1] + 1.0)/den[u[i].total_prefs]) * 100;
+        }
+      }
+    }
+    return (int)hap;
+  }
+
+  public int checkTeam(Team t, User[] u)
+  {
+    int aLen = t.people.length;
+    int bLen = u.length;
+    User[] result = new User[aLen + bLen];
+
+    System.arraycopy(t.people, 0, result, 0, aLen);
+    System.arraycopy(u, 0, result, aLen, bLen);
+
+    return getHappiness(result, aLen + bLen);
+  }
+
+  public void userSort()
+  {
+    for (int i = 1; i < count; i++)
+    {
+      double v = (ordered[i].total_prefs*10) + ordered[i].rank;
+
+      if (ordered[i].total_prefs == 0)
+      {
+        v = 100;
+      }
+      User current = ordered[i];
+      int j;
+      for (j = i; j > 0 &&(ordered[j-1].total_prefs*10) + ordered[j-1].rank > v; j--)
+      {
+        ordered[j] = ordered[j-1];
+      }
+      ordered[j] = current;
+    }
+  }
+
+  public User getPair(User o)
+  {
+    if(o.total_prefs == 0)
+    {
+      return o;
+    }
+
+    int place = 0;
+
+    User potential = c[mentioned_people.get(o.pref[place])];
+    User potential2;
+  
+    User[] arr = new User[2];
+    arr[0] = o;
+    arr[1] = potential;
+
+    int currentHap = getHappiness(arr,2);
+
+    for (int i=1; i < o.total_prefs; i++)
+    {
+      potential2 = c[mentioned_people.get(o.pref[i])];
+
+      arr[1] = potential2;
+      
+      if (getHappiness(arr,2)-i > currentHap)
+      {
+        place = i;
+        currentHap = getHappiness(arr,2)-i;
+      }
+      
+    }
+    return c[place];
+  }
+
+  public boolean onTeams (User u)
+  {
+    int numberOfTeams = count/teamsize;
+
+    if (count%teamsize != 0)
+    {
+      numberOfTeams++;
+    }
+    System.out.println(numberOfTeams);
+
+    for (int i = 0; i < numberOfTeams; i++)
+    {
+      for(int j = 0; j < officialTeams[i].current; j++)
+      {
+        if(u == officialTeams[i].people[j])
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  public void placeTemp (Team tempTeam)
+  {
+    int numberOfTeams = count/teamsize;
+
+    if (count%teamsize != 0)
+    {
+      numberOfTeams++;
+    }
+
+    System.out.println(onTeams(tempTeam.people[0]));
+
+    if (onTeams(tempTeam.people[0]) && onTeams(tempTeam.people[1]))
+    {
+          System.out.println("here1");
+
+      //both are on a team
+      return;
+    }
+    else if (!onTeams(tempTeam.people[0]) && onTeams(tempTeam.people[1]))
+    {
+      //first person is on a team
+          System.out.println("here2");
+
+       for (int i = 0; i < numberOfTeams; i++)
+      {
+        for (int j = 0; j < officialTeams[i].current; j++)
+        {
+          if (officialTeams[i].current < officialTeams[i].max && officialTeams[i].people[j] == tempTeam.people[0])
+          {
+            officialTeams[i].addUsers(Arrays.copyOfRange(tempTeam.people, 1, 1),1);
+            return;
+          }
+        }
+      }
+
+      int bestB = 0;
+      for (int i = 0; i < numberOfTeams; i++)
+      {
+        if(checkTeam(officialTeams[i], Arrays.copyOfRange(tempTeam.people, 0, 0)) > bestB && officialTeams[i].current != officialTeams[i].max)
+        {
+          bestB = i;
+        }
+      }
+      officialTeams[bestB].addUsers(Arrays.copyOfRange(tempTeam.people, 1, 1), 1);
+    }
+    else if (onTeams(tempTeam.people[0]) && !onTeams(tempTeam.people[1]))
+    {
+      //second person is on a team
+          System.out.println("here3");
+
+      for (int i = 0; i < numberOfTeams; i++)
+      {
+        for (int j = 0; j < officialTeams[i].current; j++)
+        {
+          if (officialTeams[i].current < officialTeams[i].max && officialTeams[i].people[j] == tempTeam.people[1])
+          {
+            officialTeams[i].addUsers(Arrays.copyOfRange(tempTeam.people, 0, 0),1);
+            return;
+          }
+        }
+      }
+
+      int bestA = 0;
+      for (int i = 0; i < numberOfTeams; i++)
+      {
+        if(checkTeam(officialTeams[i], Arrays.copyOfRange(tempTeam.people, 0, 0)) > bestA && officialTeams[i].current != officialTeams[i].max)
+        {
+          bestA = i;
+        }
+      }
+      officialTeams[bestA].addUsers(Arrays.copyOfRange(tempTeam.people, 0, 0), 1);
+    }
+    else
+    {
+      //neither are on a team 
+          System.out.println("here4");
+
+      //places on an empty team if there is one
+      for (int i = 0; i < numberOfTeams; i++)
+      {
+        if (officialTeams[i].current == 0)
+        {
+          officialTeams[i].addUsers(tempTeam.people,2);
+          return;
+        }
+      }
+
+      //finds best team with 2 slots
+      boolean found = false;
+      Team bestTeam = officialTeams[0];
+      int index = 0;
+      
+      for (int i = 1; i < numberOfTeams; i++)
+      {
+        if(checkTeam(bestTeam, tempTeam.people) < checkTeam(officialTeams[i], tempTeam.people))
+        {
+          bestTeam = officialTeams[i];
+          found = true;
+          index = i;
+        }
+      }
+
+      if (found)
+      {
+        officialTeams[index].addUsers(tempTeam.people,2);
+        return;
+      }
+
+      int bestA = 0;
+      for (int i = 0; i < numberOfTeams; i++)
+      {
+        if(checkTeam(officialTeams[i], Arrays.copyOfRange(tempTeam.people, 0, 0)) > bestA && officialTeams[i].current != officialTeams[i].max)
+        {
+          bestA = i;
+        }
+      }
+      officialTeams[bestA].addUsers(Arrays.copyOfRange(tempTeam.people, 0, 0), 1);
+      int bestB = 0;
+
+      for (int i = 0; i < numberOfTeams; i++)
+      {
+        if(checkTeam(officialTeams[i], Arrays.copyOfRange(tempTeam.people, 1, 1)) > bestB && officialTeams[i].current != officialTeams[i].max)
+        {
+          bestB = i;
+        }
+      }
+      officialTeams[bestB].addUsers(Arrays.copyOfRange(tempTeam.people, 1, 1), 1);
+
+    }
+  }
+  
+
+  public void primaryFunction(String verbosity)
+  {
     //defines map
-    HashMap<String, Integer> mentioned_people = new HashMap<String, Integer>();
     p = new PageRank();
+    teamsize = 3;
 
     //loads the users and their prefs
     prefs(mentioned_people);
-
     //returns an array of all the names and outputs them into teams of 3 
     getKeys(mentioned_people, 0);
     
     //runs page rank
     p.calc(count);
 
-    //potential loop for multiple itterations???
+    //orders users
+    ordered = new User[count];
+    for (int i=0; i < count; i++)
+    {
+      c[i].rank = p.pagerank[i+1];
+      ordered[i] = c[i];
+    }
+    System.out.println("here");
+    userSort();
+    User[] temporaryTeam = new User[2];
+    Team[] tempTeams = new Team[count];
+    //finds each person's best pairing
+    for (int i = 0; i < count; i++)
+    {
+      temporaryTeam[0] = ordered[i];
+      temporaryTeam[1] = getPair(ordered[(i)]);
+      tempTeams[i] = new Team(teamsize,Arrays.copyOfRange(temporaryTeam, 0, 1));
+    }
+    //creates main teams
+    int numberOfTeams = count/teamsize;
+    System.out.println("here");
 
-    //run team optimization algorithm
+    if (count%teamsize != 0)
+    {
+      numberOfTeams++;
+    }
+    System.out.println("here");
 
-    //output (with verbosity??)
+    officialTeams = new Team[numberOfTeams];
+    for (int i = 0; i < numberOfTeams; i++)
+    {
+      officialTeams[i] = new Team(teamsize);
+    }
+    System.out.println("here");
+
+    //puts people on teams
+    for (int i = 0; i < count; i++)
+    {
+      placeTemp(tempTeams[i]);
+    }
+    System.out.println("here");
+
+
   }
 
   public static void main (String[] args )  throws FileNotFoundException
   {
+    int verbose = 0;
+    //if (teamsize == 0)
+    {
+      //System.out.println("You cannot have a teamsize of zero");
+      //return;
+    }
+    //parsing input
+    /*
+    for (int i = 0; i <= args.length; i++)
+    {
+      if (args[i] == "-v")
+      {
+        verbose = args[i+1];
+      }
+      else if (args[i] == "-t")
+      {
+        teamsize = args[i+1];
+      }
+    }
+    */
+
+
     //creates the main GoogleHappy object and runs primaryFunction
-    new GoogleHappy().primaryFunction(args[0]);
+    new GoogleHappy().primaryFunction("0");
   }
   
   //send in the hashmap,0 to just set an array send in hashmap,1 to output a set of teams
