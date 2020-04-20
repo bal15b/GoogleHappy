@@ -185,6 +185,17 @@ public class GoogleHappy
 		}
 
 	}
+	
+	//testing
+	public void getUserInfo(String userName)
+	{
+		for(int i = 0; i < 9; i++)
+		{
+			if(c[i].name.equals(userName))
+				c[i].printUserInfo();
+		}
+		
+	}
 
 
   public class Team
