@@ -484,7 +484,7 @@ public class GoogleHappy
     //loads the users and their prefs
     prefs(mentioned_people);
 
-
+    fillTeams(c);
     
     //runs page rank
     p.calc(count);
