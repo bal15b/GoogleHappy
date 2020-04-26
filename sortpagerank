@@ -1,5 +1,10 @@
 public User[] orderByPR(User[] order)
   {
+    for (int i=0; i < count; i++)
+    {
+      c[i].rank = p.pagerank[i+1];
+      order[i] = c[i];
+    }
     for (int i = 1; i < count; i++)
     {
       double v = (order[i].total_prefs*10) + order[i].rank;
