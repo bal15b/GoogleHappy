@@ -1,0 +1,21 @@
+public User[] orderByPR(User[] order)
+  {
+    for (int i = 1; i < count; i++)
+    {
+      double v = (order[i].total_prefs*10) + order[i].rank;
+
+      if (order[i].total_prefs == 0)
+      {
+        v = 100;
+      }
+      User current = order[i];
+      int j;
+      for (j = i; j > 0 &&(order[j-1].total_prefs*10) + order[j-1].rank > v; j--)
+      {
+        order[j] = order[j-1];
+      }
+      order[j] = current;
+    }
+
+    return order;
+  }
