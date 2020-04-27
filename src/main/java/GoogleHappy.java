@@ -626,7 +626,7 @@ public class GoogleHappy
   {
 	if (proposal == 1)
 	{
-		for (int i = 0; i < count; i++)
+		for (int i = 0; i <  count; i++)
 		{
 			p.pagerank[i] = 1-p.pagerank[i];
 		}
