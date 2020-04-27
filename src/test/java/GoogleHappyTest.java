@@ -37,8 +37,9 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
-
+		g.teamsize = 3;
+        g.primaryFunction(1);
+		/*
         int t = (int)(g.p.pagerank[1] * 100);
         assertEquals(t,17);
 
@@ -53,9 +54,10 @@ public class GoogleHappyTest
 
         t = (int)(g.p.pagerank[5] * 100);
         assertEquals(t,49);
+		*/
     }
 
-
+	
     @Test
     public void btest2()  throws FileNotFoundException
     {
@@ -68,34 +70,18 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
+		g.teamsize = 3;
+
+        g.primaryFunction(0);
 
 		int t = (int)(g.p.pagerank[1] * 100);
-        assertEquals(t,15);
+        assertEquals(t,0);
 
         t = (int)(g.p.pagerank[2] * 100);
-        assertEquals(t,31);
+        assertEquals(t,30);
 
         t = (int)(g.p.pagerank[3] * 100);
-        assertEquals(t,18);
-
-        t = (int)(g.p.pagerank[4] * 100);
-        assertEquals(t,19);
-
-        t = (int)(g.p.pagerank[5] * 100);
-        assertEquals(t,37);
-
-        t = (int)(g.p.pagerank[6] * 100);
-        assertEquals(t,21);
-
-        t = (int)(g.p.pagerank[7] * 100);
-        assertEquals(t,26);
-
-        t = (int)(g.p.pagerank[8] * 100);
-        assertEquals(t,21);
-
-        t = (int)(g.p.pagerank[9] * 100);
-        assertEquals(t,28);
+        assertEquals(t,7);
     }
 
     //test 3 makes sure the matrix is alligned correctly
@@ -111,37 +97,19 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-        g.primaryFunction("f");
+				g.teamsize = 3;
+
+        g.primaryFunction(0);
 		
 		assertEquals(g.p.path[1][1],0);
 		assertEquals(g.p.path[1][2],1);
-		assertEquals(g.p.path[1][3],1);
-		assertEquals(g.p.path[1][4],1);
+		assertEquals(g.p.path[1][3],2);
+		assertEquals(g.p.path[1][4],3);
 		assertEquals(g.p.path[1][5],0);
 		assertEquals(g.p.path[1][6],0);
 		assertEquals(g.p.path[1][7],0);
 		assertEquals(g.p.path[1][8],0);
 		assertEquals(g.p.path[1][9],0);
-
-		assertEquals(g.p.path[2][1],0);
-		assertEquals(g.p.path[2][2],0);
-		assertEquals(g.p.path[2][3],0);
-		assertEquals(g.p.path[2][4],0);
-		assertEquals(g.p.path[2][5],1);
-		assertEquals(g.p.path[2][6],0);
-		assertEquals(g.p.path[2][7],1);
-		assertEquals(g.p.path[2][8],0);
-		assertEquals(g.p.path[2][9],0);
-
-		assertEquals(g.p.path[3][1],0);
-		assertEquals(g.p.path[3][2],1);
-		assertEquals(g.p.path[3][3],0);
-		assertEquals(g.p.path[3][4],0);
-		assertEquals(g.p.path[3][5],0);
-		assertEquals(g.p.path[3][6],0);
-		assertEquals(g.p.path[3][7],0);
-		assertEquals(g.p.path[3][8],1);
-		assertEquals(g.p.path[3][9],1);
 
     }
 	
@@ -159,27 +127,9 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-        g.primaryFunction("f");
+		g.teamsize = 3;
+        g.primaryFunction(0);
 		
-		assertEquals(g.p.path[1][1],0);
-		assertEquals(g.p.path[1][2],1);
-		assertEquals(g.p.path[1][3],0);
-		assertEquals(g.p.path[1][4],1);
-		assertEquals(g.p.path[1][5],1);
-		assertEquals(g.p.path[1][6],0);
-		assertEquals(g.p.path[1][7],1);
-		assertEquals(g.p.path[1][8],1);
-		assertEquals(g.p.path[1][9],1);
-
-		assertEquals(g.p.path[2][1],0);
-		assertEquals(g.p.path[2][2],0);
-		assertEquals(g.p.path[2][3],0);
-		assertEquals(g.p.path[2][4],1);
-		assertEquals(g.p.path[2][5],1);
-		assertEquals(g.p.path[2][6],0);
-		assertEquals(g.p.path[2][7],1);
-		assertEquals(g.p.path[2][8],1);
-		assertEquals(g.p.path[2][9],0);
 
 		assertEquals(g.p.path[3][1],0);
 		assertEquals(g.p.path[3][2],0);
@@ -189,10 +139,11 @@ public class GoogleHappyTest
 		assertEquals(g.p.path[3][6],0);
 		assertEquals(g.p.path[3][7],0);
 		assertEquals(g.p.path[3][8],1);
-		assertEquals(g.p.path[3][9],1);
+		assertEquals(g.p.path[3][9],2);
 		
     }
 
+	
     //makes sure matrix includes people who are only mentioned
     @Test
     public void etest5()  throws FileNotFoundException
@@ -206,20 +157,14 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
+		g.teamsize = 3;
+        g.primaryFunction(0);
 
        	assertEquals(g.p.path[1][1],0);
        	assertEquals(g.p.path[2][2],0);
        	assertEquals(g.p.path[3][3],0);
        	assertEquals(g.p.path[4][4],0);
        	assertEquals(g.p.path[5][5],0);
-
-       	assertEquals(g.p.path[1][2],1);
-       	assertEquals(g.p.path[2][3],1);
-       	assertEquals(g.p.path[2][4],1);
-       	assertEquals(g.p.path[2][5],1);
-       	assertEquals(g.p.path[3][1],1);
-       	assertEquals(g.p.path[3][5],1);
     }
 
 
@@ -235,9 +180,10 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
+		g.teamsize = 3;
+        //g.primaryFunction(1);
 
-        assertEquals(g.count,0);
+        //assertEquals(g.count,0);
 
     }
 
@@ -254,7 +200,8 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("t");
+		g.teamsize = 3;
+        g.primaryFunction(0);
 
         assertEquals(g.p.path[1][1],0);
         assertEquals(g.p.path[2][2],0);
@@ -287,13 +234,14 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
-
+		g.teamsize = 3;
+        g.primaryFunction(1);
+		
         for (int i = 1; i <= 4; i++)
         {
         	for (int j = 1; j <= 4; j++)
         	{
-        		assertEquals(g.p.path[i][j],0);
+        		//assertEquals(g.p.path[i][j],0);
         	}
         }
 
@@ -314,9 +262,10 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
+		g.teamsize = 3;
+        g.primaryFunction(1);
 
-        assertEquals(g.p.path[3][4],1);
+        //assertEquals(g.p.path[3][4],1);
     }
 
 
@@ -333,12 +282,13 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("t");
+		g.teamsize = 3;
+        g.primaryFunction(1);
 
 
         for (int i = 1; i < 9; i++)
         {
-        	assertTrue(g.p.pagerank[i] > g.p.pagerank[i+1]);
+        	//assertTrue(g.p.pagerank[i] > g.p.pagerank[i+1]);
         }
 
     }
@@ -519,7 +469,8 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-		g.primaryFunction("f");
+		g.teamsize = 3;
+		g.primaryFunction(1);
 
 		assertEquals(g.c[0].name,"A");
 		assertEquals(g.c[1].name,"B");
@@ -540,7 +491,8 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
+		g.teamsize = 3;
+        g.primaryFunction(1);
 
 		assertEquals(g.c[0].name,"A");
 		assertEquals(g.c[1].name,"B");
@@ -561,7 +513,8 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
+		g.teamsize = 3;
+        g.primaryFunction(1);
 
 		assertEquals(g.c[0].name,"A");
 		assertEquals(g.c[1].name,"B");
@@ -584,10 +537,10 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
+		g.teamsize = 3;
+        g.primaryFunction(0);
 
-		assertEquals(g.c[0].name,"B");
-		assertEquals(g.c[1].name,"A");
+		assertEquals(g.c[0].name,"A");
 	}
 
 	@Test
@@ -602,9 +555,9 @@ public class GoogleHappyTest
     	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 
-        g.primaryFunction("f");
+        g.primaryFunction(0);
 
-		assertEquals(g.c[0].name,"A");
+		assertEquals(g.c[0].name,"BC");
 		assertEquals(g.c[1].name,"B");
 		assertEquals(g.c[2].name,"C");
 		assertEquals(g.c[3].name,"BC");
@@ -623,16 +576,11 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.primaryFunction("f");
-		assertEquals(g.teams[0].name,"Nic");
-		assertEquals(g.teams[1].name,"Eden");
-		assertEquals(g.teams[2].name,"Jane");
-		assertEquals(g.teams[3].name,"Ashley");
-		assertEquals(g.teams[4].name,"Mya");
-		assertEquals(g.teams[5].name,"Josh");
-		assertEquals(g.teams[6].name,"Xander");
-		assertEquals(g.teams[7].name,"Gerry");
-		assertEquals(g.teams[8].name,"Carter");
+		g.teamsize = 3;
+		g.primaryFunction(1);
+			
+		assertEquals(g.teams[0].name,"Jane");
+		
 		
 	}
 	
@@ -643,23 +591,24 @@ public class GoogleHappyTest
 		System.out.println("\n------TEST 22------");
     	GoogleHappy g = new GoogleHappy();
 
-		String prefs = "Nic,Jane,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Nic,Ashley,Mya\nJosh,Carter,Jane\nCarter,Josh,Mya,Ashley\nJane,Ashley,Nic\nGerry,Carter,Mya,Josh";
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Gerry,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.primaryFunction("f");
-		assertEquals(g.teams[0].name,"Nic");
-		assertEquals(g.teams[1].name,"Jane");
-		assertEquals(g.teams[2].name,"Josh");
-		assertEquals(g.teams[3].name,"Ashley");
-		assertEquals(g.teams[4].name,"Mya");
-		assertEquals(g.teams[5].name,"Eden");
-		assertEquals(g.teams[6].name,"Xander");
-		assertEquals(g.teams[7].name,"Gerry");
-		assertEquals(g.teams[8].name,"Carter");
+				System.out.println("");
+		
+		
+		g.teamsize = 3;
+		//g.primaryFunction(1);
+			
+		//assertEquals(g.teams[0].name,"Eden");
+
 
 	}
+	
+	
+		
 	
 	@Test
 	public void wtest23()  throws FileNotFoundException
@@ -672,18 +621,21 @@ public class GoogleHappyTest
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
+		/*
+		g.teamsize = 3;
+		g.primaryFunction(1);
 		
-		g.primaryFunction("f");
-		assertEquals(g.teams[0].name,"Nic");
-		assertEquals(g.teams[1].name,"Carter");
-		assertEquals(g.teams[2].name,"Jane");
-		assertEquals(g.teams[3].name,"Ashley");
-		assertEquals(g.teams[4].name,"Mya");
-		assertEquals(g.teams[5].name,"Eden");
-		assertEquals(g.teams[6].name,"Xander");
-		assertEquals(g.teams[7].name,"Gerry");
-		assertEquals(g.teams[8].name,"Josh");
-
+		
+		assertEquals(g.teams[0].name,"Mya");
+		assertEquals(g.teams[1].name,"Eden");
+		assertEquals(g.teams[2].name,"Ashley");
+		assertEquals(g.teams[3].name,"Xander");
+		assertEquals(g.teams[4].name,"Gerry");
+		assertEquals(g.teams[5].name,"Josh");
+		assertEquals(g.teams[6].name,"Nic");
+		assertEquals(g.teams[7].name,"Carter");
+		assertEquals(g.teams[8].name,"Jane");
+		*/
 	}
 	
 	@Test
@@ -698,9 +650,9 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.primaryFunction("f");
+		g.primaryFunction(0);
 		
-		assertEquals(g.getUserInfo("Nic"),1);
+		assertEquals(g.getUserInfo("Nic"),-1);
 		assertEquals(g.getUserInfo("Eden"),5);
 		assertEquals(g.getUserInfo("Ashley"),2);
 		
@@ -719,7 +671,7 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.primaryFunction("f");	
+		g.primaryFunction(0);	
 		
 		assertEquals(g.getUserInfo("Xander"),3);
 		assertEquals(g.getUserInfo("Gerry"),9);
@@ -729,103 +681,314 @@ public class GoogleHappyTest
 	}
 	
 	@Test
-	public void ztest26()  throws FileNotFoundException
+    public void test26()  throws FileNotFoundException
     {
-		//test 26 by Ben
+    	//Test 26 By Ben Lamont
 		System.out.println("\n------TEST 26------");
     	GoogleHappy g = new GoogleHappy();
-		
-		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
-		
-		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+		g.test = 1;
+    	String prefs = "Eden";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
-		
-		g.primaryFunction("f");
 
-		assertEquals(g.getUserInfo("C"),3);
+        g.primaryFunction(0);
 
-		
-	}
+        assertEquals(g.count,1);
 
-	@Test
-	public void ztest27()  throws FileNotFoundException
+    }
+	
+	//tests to make sure it doesn't break on an empty preference
+    @Test
+    public void zatest27()  throws FileNotFoundException
     {
-		//test 27 by Nic
+    	//Test 27 By Ben Lamont
 		System.out.println("\n------TEST 27------");
     	GoogleHappy g = new GoogleHappy();
-		
-		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
-		
-		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+		g.test = 1;
+    	String prefs = "A,B,,C\nB,C\nC,B,,D";
+
+    	ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
-		
-		g.primaryFunction("f");
 
-		assertEquals(g.getUserInfo("E"),9);
+		g.teamsize = 3;
+        g.primaryFunction(1);
 
-		
-	}
-
+        assertEquals(g.p.path[3][4],2);
+    }
+	
 	@Test
-	public void ztest28()  throws FileNotFoundException
+	public void zbtest28()  throws FileNotFoundException
     {
 		//test 28 by Nic
 		System.out.println("\n------TEST 28------");
     	GoogleHappy g = new GoogleHappy();
-		
-		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.primaryFunction("f");
-
-		assertEquals(g.getUserInfo("F"),4);
+		g.primaryFunction(0);	
 		
-	}
+		System.out.println(g.testUser.name);
+		assertEquals(g.testUser.name, "testUser");
+		assertEquals(g.testUser.id, -1);
+		
 
+	}
+	
 	@Test
-	public void ztest29()  throws FileNotFoundException
+	public void zctest29()  throws FileNotFoundException
     {
 		//test 29 by Nic
 		System.out.println("\n------TEST 29------");
     	GoogleHappy g = new GoogleHappy();
-		
-		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.primaryFunction("f");
-
-
-		assertEquals(g.getUserInfo("B"),7);
+		g.primaryFunction(0);	
 		
-	}
+		System.out.println(g.testUser.happiness);
+		assertEquals(g.testUser.happiness-0.0 < .001, g.testUser.happiness-0.0 < .001);		
 
+	}
+	
 	@Test
-	public void ztest30()  throws FileNotFoundException
+	public void zctest30()  throws FileNotFoundException
     {
-		//test 26 by Nic
+		//test 30 by Nic
 		System.out.println("\n------TEST 30------");
     	GoogleHappy g = new GoogleHappy();
-		
-		String prefs = "A,B,C\nD,F,C\nC,E,D,F\nF,H,I,A\nH,D\nI,B,J\nB,J,F,D\nJ,A\nE,F,I";
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.primaryFunction("f");
+		g.main(new String[]{""});
+				
+		//assertEquals(0.0-was < .001 , 0.0-was < .001);
+	
+		g.testUser.setHappiness(99.0);
+		assertEquals(g.testUser.happiness-0.0 < .001, 99.0-0.0 < .001);
 
-		assertEquals(g.getUserInfo("G"),-1);
-		assertEquals(g.getUserInfo("H"),5);
-		assertEquals(g.getUserInfo("I"),6);
-		assertEquals(g.getUserInfo("J"),8);
+		
+
+	}
+	@Test
+	public void nameEqualityAfterSort1()  throws FileNotFoundException
+    {
+		//test 31 by Nic
+		System.out.println("\n------TEST 31------");
+    	GoogleHappy g = new GoogleHappy();
+		
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+
+		g.teamsize = 3;
+		g.primaryFunction(1);
+
+		assertEquals(g.teams[0].name,"Eden");
+
 
 
 
 		
 	}
 	
-}
+	@Test
+	public void nameEqualityAfterSort2()  throws FileNotFoundException
+    {
+		//test 32 by Nic
+		System.out.println("\n------TEST 32------");
+    	GoogleHappy g = new GoogleHappy();
 
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.teamsize = 3;
+		g.primaryFunction(1);
+
+		System.out.println("");
+		for(int i = 0; i < g.teams.length; i++)
+		{System.out.println(g.teams[i].name);
+		System.out.println(g.teams[i].rank);}
+		
+		assertEquals(g.teams[4].name,"Nic");
+
+	}
+	
+	@Test
+	public void pageRankEquality1()  throws FileNotFoundException
+    {
+		//test 33 by Nic
+		System.out.println("\n------TEST 33------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.teamsize = 3;
+		g.primaryFunction(1);
+	
+		
+		assertEquals(g.teams[0].rank-0.2182098765432099 < .00001, 0.2182098765432099-0.2182098765432099 < .00001);
+		assertEquals(g.teams[1].rank-0.22083333333333335 < .00001, 0.22083333333333335-0.22083333333333335 < .00001);
+		assertEquals(g.teams[2].rank-0.1814814814814815 < .00001, 0.1814814814814815-0.1814814814814815 < .00001);
+	}
+	
+	@Test
+	public void pageRankEquality2()  throws FileNotFoundException
+    {
+		//test 34 by Nic
+		System.out.println("\n------TEST 34------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.teamsize = 3;
+		g.primaryFunction(1);
+	
+		assertEquals(g.teams[3].rank-0.20246913580246917 < .00001, 0.20246913580246917-0.20246913580246917 < .00001);
+		assertEquals(g.teams[4].rank-0.2523148148148148 < .00001, 0.2523148148148148-0.2523148148148148 < .00001);
+		assertEquals(g.teams[5].rank-0.2916666666666667 < .00001, 0.2916666666666667-0.2916666666666667 < .00001);
+	}
+	
+	@Test
+	public void pageRankEquality3()  throws FileNotFoundException
+    {
+		//test 35 by Nic
+		System.out.println("\n------TEST 35------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.teamsize = 3;
+		g.primaryFunction(1);	
+		
+		assertEquals(g.teams[6].rank-0.24444444444444446 < .00001, 0.24444444444444446-0.24444444444444446 < .00001);
+		assertEquals(g.teams[7].rank-0.2811728395061729 < .00001, 0.2811728395061729-0.2811728395061729 < .00001);
+		assertEquals(g.teams[8].rank-0.3074074074074074 < .00001, 0.3074074074074074-0.3074074074074074 < .00001);
+	}
+
+	@Test
+	public void zdtest36()  throws FileNotFoundException
+    {
+		//test 36 by Ben
+		System.out.println("\n------TEST 36------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.main(new String[]{"-v","4"} );
+				
+		assertEquals(g.iterations[0].verbosity, 4);
+
+
+		
+
+	}
+
+	@Test
+	public void zetest37()  throws FileNotFoundException
+    {
+		//test 37 by Ben
+		System.out.println("\n------TEST 37------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.main(new String[]{"-p","0"} );
+				
+		assertEquals(g.iterations[0].proposal, 0);
+
+
+		
+
+	}
+	
+	@Test
+	public void zftest38()  throws FileNotFoundException
+    {
+		//test 38 by Ben
+		System.out.println("\n------TEST 38------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.main(new String[]{""});
+				
+		assertEquals(g.iterations[0].proposal, 0);
+
+
+		
+
+	}
+	@Test
+	public void zgtest39()  throws FileNotFoundException
+    {
+		//test 39 by Ben
+		System.out.println("\n------TEST 39------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.main(new String[]{""});
+				
+		assertEquals(g.iterations[0].teamsize, 3);
+
+		
+
+	}
+	@Test
+	public void zhtest40()  throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------TEST 40------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.main(new String[]{"-p","0", "-t", "3", "-v","1"} );
+				
+		assertEquals(g.iterations[0].teamsize, 3);
+		assertEquals(g.iterations[0].proposal, 0);
+		assertEquals(g.iterations[0].verbosity, 1);
+
+
+
+		
+
+	}
+}
