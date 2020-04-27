@@ -840,10 +840,10 @@ public class GoogleHappyTest
 	}	
 	
 	@Test
-	public void zctest31()  throws FileNotFoundException
+	public void nameEqualityAfterSort1()  throws FileNotFoundException
     {
-		//test 30 by Nic
-		System.out.println("\n------TEST 30------");
+		//test 31 by Nic
+		System.out.println("\n------TEST 31------");
     	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
@@ -853,8 +853,125 @@ public class GoogleHappyTest
 		
 		g.primaryFunction("f");	
 	
+		g.orderByPR(g.teams);
 		
+		System.out.println("");
+		for(int i = 0; i < g.teams.length; i++)
+		{System.out.println(g.teams[i].name);
+		System.out.println(g.teams[i].rank);}
+		
+		assertEquals(g.teams[0].name,"Jane");
+		assertEquals(g.teams[1].name,"Eden");
+		assertEquals(g.teams[2].name,"Gerry");
+		assertEquals(g.teams[3].name,"Ashley");
+	
+	
+	}
+	
+	@Test
+	public void nameEqualityAfterSort2()  throws FileNotFoundException
+    {
+		//test 32 by Nic
+		System.out.println("\n------TEST 32------");
+    	GoogleHappy g = new GoogleHappy();
 
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");	
+	
+		g.orderByPR(g.teams);
+		
+		System.out.println("");
+		for(int i = 0; i < g.teams.length; i++)
+		{System.out.println(g.teams[i].name);
+		System.out.println(g.teams[i].rank);}
+		
+		assertEquals(g.teams[4].name,"Josh");
+		assertEquals(g.teams[5].name,"Nic");
+		assertEquals(g.teams[6].name,"Xander");
+		assertEquals(g.teams[7].name,"Mya");
+		assertEquals(g.teams[8].name,"Carter");
+	}
+	
+	@Test
+	public void pageRankEquality1()  throws FileNotFoundException
+    {
+		//test 33 by Nic
+		System.out.println("\n------TEST 33------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");	
+	
+		g.orderByPR(g.teams);
+		
+		System.out.println("");
+		for(int i = 0; i < g.teams.length; i++)
+		{System.out.println(g.teams[i].name);
+		System.out.println(g.teams[i].rank);}
+		
+		assertEquals(g.teams[0].rank-0.2182098765432099 < .00001, 0.2182098765432099-0.2182098765432099 < .00001);
+		assertEquals(g.teams[1].rank-0.22083333333333335 < .00001, 0.22083333333333335-0.22083333333333335 < .00001);
+		assertEquals(g.teams[2].rank-0.1814814814814815 < .00001, 0.1814814814814815-0.1814814814814815 < .00001);
+	}
+	
+	@Test
+	public void pageRankEquality2()  throws FileNotFoundException
+    {
+		//test 34 by Nic
+		System.out.println("\n------TEST 34------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");	
+	
+		g.orderByPR(g.teams);
+		
+		System.out.println("");
+		for(int i = 0; i < g.teams.length; i++)
+		{System.out.println(g.teams[i].name);
+		System.out.println(g.teams[i].rank);}
+		
+		assertEquals(g.teams[3].rank-0.20246913580246917 < .00001, 0.20246913580246917-0.20246913580246917 < .00001);
+		assertEquals(g.teams[4].rank-0.2523148148148148 < .00001, 0.2523148148148148-0.2523148148148148 < .00001);
+		assertEquals(g.teams[5].rank-0.2916666666666667 < .00001, 0.2916666666666667-0.2916666666666667 < .00001);
+	}
+	
+	@Test
+	public void pageRankEquality3()  throws FileNotFoundException
+    {
+		//test 35 by Nic
+		System.out.println("\n------TEST 35------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.primaryFunction("f");	
+	
+		g.orderByPR(g.teams);
+		
+		System.out.println("");
+		for(int i = 0; i < g.teams.length; i++)
+		{System.out.println(g.teams[i].name);
+		System.out.println(g.teams[i].rank);}
+		
+		assertEquals(g.teams[6].rank-0.24444444444444446 < .00001, 0.24444444444444446-0.24444444444444446 < .00001);
+		assertEquals(g.teams[7].rank-0.2811728395061729 < .00001, 0.2811728395061729-0.2811728395061729 < .00001);
+		assertEquals(g.teams[8].rank-0.3074074074074074 < .00001, 0.3074074074074074-0.3074074074074074 < .00001);
 	}
 	
 }
