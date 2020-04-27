@@ -9,13 +9,14 @@ import java.io.*;
  *  Date   : 5/6/2020
  *
  *
- *
  ******************************************************************************/
 public class GoogleHappy 
 {
 
 	private String weighted;
 	public int test = 0;
+	public int directionToOrder;
+	
 	public double getMath(double n, int choice)
 	{
 		if (weighted == "t")
@@ -31,7 +32,6 @@ public class GoogleHappy
 		return 1/n;
 		
 	}
-
 
 	public class PageRank 
 	{
@@ -124,15 +124,15 @@ public class GoogleHappy
 
 	}
 
-
 	public class User
 	{
 		public int total_prefs;
 		public int id;
+		public double rank;
 		public String name;
 		public String pref[];
+
 		public double happiness;
-		
 		
 		//set user
 		User(String[] p, int i)
@@ -157,6 +157,7 @@ public class GoogleHappy
 			total_prefs = 0;
 			pref = new String[1];
 			pref[0] = p;
+			happiness = 0;
 		}
 		
 		//print users info
@@ -181,11 +182,8 @@ public class GoogleHappy
 		{
 			happiness = n;
 		}
-
 	}
 
-
-	
 	//primary list of people
 	public int count; //amount of people
 	public int teamsize;
@@ -203,39 +201,105 @@ public class GoogleHappy
 		return -1;
 		
 	}
+		
 	
-	private User[] orderByPR(User[] usersAr)
+	public User[] orderByPR(User[] order)
 	{
-		for(int n = 0; n < count; n++)
-			for(int j = n; j < count; j++)
-				if(p.pagerank[n+1] > p.pagerank[j+1])
-				{
-					//perform swap
-					User temp = usersAr[n];
-					usersAr[n] = usersAr[j];
-					usersAr[j] = temp;
-					
-					j = n;
+
+		//sets everyones rank to their user
+		for (int i = 0; i < count; i++)
+		{
+			c[i].rank = p.pagerank[i+1];
+			order[i] = c[i];
+		}
+		
+		for (int i = 1; i < count; i++)
+		{
+			double v = (order[i].total_prefs*10) + order[i].rank;
+			if (order[i].total_prefs == 0)
+			{
+				v = 100;
+			}
+			
+			User current = order[i];
+			int j;
+			
+			for (j = i; j > 0 && (order[j-1].total_prefs*10) + order[j-1].rank > v; j--)
+			{
+				order[j] = order[j-1];
+			}
+			
+			order[j] = current;
+		}
+		
+		
+		//makes a double array to sort
+		double[] ranks = new double[count];
+		
+		User[] ordered = new User[count];
+		
+		//fill ranks with the ranks lol
+		for(int i = 0; i < ranks.length; i++)
+			ranks[i] = c[i].rank;
+		
+		//from descending to ascending
+		Arrays.sort(ranks);
+		
+		int p = 0;
+		//find the people and attach that have that PR and attach them in order
+		for(int i = 0; i < 9; i++)
+			for(int t = 0; t < 9; t++)
+				if(ranks[i] == c[t].rank)
+				{	
+					//this catches people have the same pagerank
+					if(!(Arrays.asList(ordered).contains(getThisUser(c, c[t].name))))
+					{	
+						ordered[p] = c[t];
+						p++;	
+					}
 				}
+		
+			
+		User[] reverseOrdered = new User[count];
+		int j = count-1;
+		
+		//if directionToOrder is 1 from inline arguments then return the list that is least pop to most pop
+		if(directionToOrder == 1)
+		{
+			for(int i = 0; i < count; i++)
+				System.out.println(ordered[i].name + ordered[i].rank);
+			
+			return ordered;
+		}
+		else //if directionToOrder is default at 0 return from highest to lowest
+		{
+			for(int i = 0; i < count; i++)
+			{
+				reverseOrdered[i] = ordered[j];
+				j--;
 				
-		//order them by how many prefs each has by putting them 
-		//while()
-		//{
-		//	if x 7
-		//}*/
-				
-		return usersAr;
+			}
+
+			return reverseOrdered;
+		}	
 	}
-	
-	
+		
 	public User[] teams;
 	public User[] fillTeams(User[] users)
 	{
+		
+		System.out.println("IN");
+		for(int i = 0; i < 9; i++)
+			System.out.println(users[i].name);
 		
 		teams = new User[count];
 		//fill the first spots of the teams	
 		for(int i = 0; i < count/teamsize; i++)
 			teams[i*count/teamsize] = users[i];
+		
+		for(int i = 0; i < count/teamsize; i++)
+			System.out.println(teams[i*count/teamsize].name);
+		
 			
 		boolean found = false;
 		//give the first people their preferences and then the seconds picks theirs so on...
@@ -244,15 +308,21 @@ public class GoogleHappy
 			for(int i = 0, choice = 1; i < count/teamsize; i++)
 			{	
 				while(found == false)
-				{	if(!(Arrays.asList(teams).contains(getThisUser(users, teams[i*teamsize+n].pref[choice]))))
+				{	
+					//System.out.println("!!!" + teams[i].name + " " + i + " " + teamsize);
+					if(!(Arrays.asList(teams).contains(getThisUser(users, teams[i*teamsize+n].pref[choice]))))
 					{	teams[i*teamsize+n+1] = getThisUser(users, teams[i*teamsize+n].pref[choice]);
 						found = true;
+						System.out.println("1st");
+
 					}
-					else if(choice + 1 < teams[i*teamsize+1].pref.length && (!(Arrays.asList(teams).contains(getThisUser(users, teams[i*teamsize+n].pref[choice+1])))))
+					else if(choice + 1 < teams[i*teamsize].pref.length && (!(Arrays.asList(teams).contains(getThisUser(users, teams[i*teamsize+n].pref[choice+1])))))
 					{	teams[i*teamsize+n+1] = getThisUser(users, teams[i*teamsize+n].pref[choice+1]);
 						found = true;
+						System.out.println("2nd");
+
 					}
-					else if(choice + 1 < teams[i*teamsize+1].pref.length)
+					else if(choice + 1 < teams[i*teamsize].pref.length)
 						choice++;
 					else
 						found = true;
@@ -353,7 +423,7 @@ public class GoogleHappy
 		return teams;
 		
 	}
-	
+	User testUser = new User("testUser", -1);
 	private User getThisUser(User[] list, String name)
 	{
 		for(int i = 0; i < list.length; i++)
@@ -463,12 +533,16 @@ public class GoogleHappy
 		}
 
 		scanner.close();
-	  }
+	}
 	  
-	  public void primaryFunction(String w)
-	  {
+	public void primaryFunction(String w)
+	{
 		weighted = w;
 		teamsize = 3;
+		
+		//This can be 0 or 1 , 0 means goes from top to bottom vis versa
+		directionToOrder = 0;
+		
 		//defines map
 		HashMap<String, Integer> mentioned_people = new HashMap<String, Integer>();
 		p = new PageRank();
@@ -479,11 +553,16 @@ public class GoogleHappy
 		//runs page rank
 		p.calc(count);
 		
-		getKeys(mentioned_people, 0);
 		
-		//orderByPR(c);
+		//Made the orderbyPr take two variables to say if its going from up to down or down to up
+		
+		
 		if(test == 0)
+		{
+			c = orderByPR(c);
 			fillTeams(c);
+		}
+		
 		
 		
 		//printTeams(c);
@@ -502,61 +581,60 @@ public class GoogleHappy
 	  }
 	  
 	    //send in the hashmap,0 to just set an array send in hashmap,1 to output a set of teams
-  public static String[] getKeys(HashMap<String, Integer> hash, int onOff)
-  {
-	  
-	//Makes an array of just the names of people
-	String allNames[] = new String [hash.size()];
-	int i = 0;
-	for (String key : hash.keySet()) 
-	{
-		allNames[i] = key;
-		i++;
-	}
-
-	if(onOff == 1)
-	{
-		//print out the names and divide them into groups of 3
-		System.out.println("\nTEAMS\n-------");
-		i = 1;
-		for( int n = 0; n < allNames.length; n++)
-		{
-			if(n%3==0)
-			{
-				if(n!=0&&n!=1)
-					System.out.print("\n");
-				System.out.println("Team " + (i));
-				i++;
-			}
-			
-			System.out.println(allNames[n]);
-		} 
-	}
-	 
-	//returns an array of names
-	return allNames;
-  }
-	  
-	  
-	  public void printTeams(User[] users)
+	  public static String[] getKeys(HashMap<String, Integer> hash, int onOff)
 	  {
-		User fnUser = new User("NothingHere", -1);
-		//print out the names and divide them into groups of 3
-		System.out.println("\nTEAMS\n-------");
-		int i = 1;
-		for( int n = 0; n < 9; n++)
+		  
+		//Makes an array of just the names of people
+		String allNames[] = new String [hash.size()];
+		int i = 0;
+		for (String key : hash.keySet()) 
 		{
-			if(users[n] == null)
-				users[n] = fnUser;
-			if(n%3==0)
-			{
-				if(n!=0&&n!=1)
-					System.out.print("\n");
-				System.out.println("Team " + (i));
-				i++;
-			}
-					
-			System.out.println(users[n].name);
+			allNames[i] = key;
+			i++;
 		}
+
+		if(onOff == 1)
+		{
+			//print out the names and divide them into groups of 3
+			System.out.println("\nTEAMS\n-------");
+			i = 1;
+			for( int n = 0; n < allNames.length; n++)
+			{
+				if(n%3==0)
+				{
+					if(n!=0&&n!=1)
+						System.out.print("\n");
+					System.out.println("Team " + (i));
+					i++;
+				}
+				
+				System.out.println(allNames[n]);
+			} 
+		}
+		 
+		//returns an array of names
+		return allNames;
 	  }
+		  
+		public void printTeams(User[] users)
+		  {
+			User fnUser = new User("NothingHere", -1);
+			//print out the names and divide them into groups of 3
+			System.out.println("\nTEAMS\n-------");
+			int i = 1;
+			for( int n = 0; n < 9; n++)
+			{
+				if(users[n] == null)
+					users[n] = fnUser;
+				if(n%3==0)
+				{
+					if(n!=0&&n!=1)
+						System.out.print("\n");
+					System.out.println("Team " + (i));
+					i++;
+				}
+						
+				System.out.println(users[n].name);
+			}
+		  }
 }
