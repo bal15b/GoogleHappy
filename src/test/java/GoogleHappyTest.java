@@ -969,34 +969,10 @@ public class GoogleHappyTest
 
 	}
 	@Test
-	public void zhtest40()  throws FileNotFoundException
-    {
-		//test 40 by Nic
-		System.out.println("\n------TEST 40------");
-    	GoogleHappy g = new GoogleHappy();
-
-		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
-		
-		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        System.setIn(in);
-		
-		g.main(new String[]{"-p","0", "-t", "3", "-v","1"} );
-				
-		assertEquals(g.iterations[0].teamsize, 3);
-		assertEquals(g.iterations[0].proposal, 0);
-		assertEquals(g.iterations[0].verbosity, 1);
-
-
-
-		
-
-	}
-	
-	@Test
 	public void testTeamSizeOfThree1()  throws FileNotFoundException
     {
 		//test 40 by Nic
-		System.out.println("\n------TEST 40------");
+		System.out.println("\n------testTeamSizeOfThree1------");
     	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
@@ -1092,10 +1068,10 @@ public class GoogleHappyTest
 	}
 	
 	@Test
-	public void testNotEnoughPeople()   throws FileNotFoundException
+	public void testNotEnoughPeople1()   throws FileNotFoundException
     {
 		//test 40 by Nic
-		System.out.println("\n------testNotEnoughPeople------");
+		System.out.println("\n------testNotEnoughPeople1------");
     	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Eden,Xander\nAshley,Will,Xander\nXander,Gerry,Ashley\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Eden,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Will,Josh\nAubrey,Madison\nMadison,Will,Carter\nLiz,Aaron,Madison\nAaron,Will,Liz\nWill,Liz,Aubrey";
@@ -1108,6 +1084,26 @@ public class GoogleHappyTest
 		
 		assertEquals(g.iterations[0].proposal, 1);
 		assertEquals(g.iterations[0].teamsize, 5);
+		assertEquals(g.iterations[0].verbosity, 1);
+	}
+	
+	@Test
+	public void testNotEnoughPeople2()   throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------testNotEnoughPeople2------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Eden,Xander\nAshley,Xander\nXander,Gerry,Ashley\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Eden,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Josh\nAubrey,Madison\nMadison,Carter\nLiz,Aaron,Madison\nAaron,Liz";
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		String[] options = new String[] {"-p","1", "-t", "3", "-v","1"};
+		
+		g.main(options);
+		
+		assertEquals(g.iterations[0].proposal, 1);
+		assertEquals(g.iterations[0].teamsize, 3);
 		assertEquals(g.iterations[0].verbosity, 1);
 	}
 }
