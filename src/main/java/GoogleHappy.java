@@ -481,7 +481,6 @@ public class GoogleHappy
 
       }
       count ++;
-
     }
 
     int temp_n = count;
