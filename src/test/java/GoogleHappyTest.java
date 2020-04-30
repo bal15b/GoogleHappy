@@ -991,4 +991,123 @@ public class GoogleHappyTest
 		
 
 	}
+	
+	@Test
+	public void testTeamSizeOfThree1()  throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------TEST 40------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.main(new String[]{"-p","0", "-t", "3", "-v","1"} );
+				
+		assertEquals(g.iterations[0].teamsize, 3);
+		assertEquals(g.iterations[0].proposal, 0);
+		assertEquals(g.iterations[0].verbosity, 1);
+	}
+
+	
+	@Test
+	public void testTeamSizeOfFour1()  throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------testTeamSizeOfFour1------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh\nAubrey,Madison,Caleb\nMadison,Jane,Carter\nCaleb,Josh,Aubrey";
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		String[] options = new String[] {"-p","0", "-t", "4", "-v","1"};
+		
+		g.main(options);
+		assertEquals(g.iterations[0].proposal, 0);
+		assertEquals(g.iterations[0].teamsize, 4);
+		assertEquals(g.iterations[0].verbosity, 1);
+	}
+	
+	@Test
+	public void testTeamSizeOfFour2()   throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------testTeamSizeOfFour2------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Madison,Xander,Jane\nAshley,Eden,Aubrey,Xander\nXander,Gerry,Ashley,Mya\nMya,Caleb,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane,Eden\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh\nAubrey,Madison,Caleb\nMadison,Jane,Carter\nCaleb,Josh,Aubrey";
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		String[] options = new String[] {"-p","1", "-t", "4", "-v","1"};
+		
+		g.main(options);
+		
+		assertEquals(g.iterations[0].proposal, 1);
+		assertEquals(g.iterations[0].teamsize, 4);
+		assertEquals(g.iterations[0].verbosity, 1);
+	}
+	
+	@Test
+	public void testTeamSizeOfFive1()   throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------testTeamSizeOfFive1------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh\nAubrey,Madison,Caleb\nMadison,Jane,Carter\nLiz,Aaron,Madison\nAaron,Will,Liz\nWill,Liz,Aubrey\nCaleb,Josh,Aubrey";
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		String[] options = new String[] {"-p","1", "-t", "5", "-v","1"};
+		
+		g.main(options);
+		
+		assertEquals(g.iterations[0].proposal, 1);
+		assertEquals(g.iterations[0].teamsize, 5);
+		assertEquals(g.iterations[0].verbosity, 1);
+	}
+	
+	@Test
+	public void testTeamSizeOfFive2()   throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------testTeamSizeOfFive2------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Eden,Xander\nAshley,Will,Xander\nXander,Gerry,Ashley\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Eden,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Will,Josh\nAubrey,Madison,Caleb\nMadison,Will,Carter\nLiz,Aaron,Madison\nAaron,Will,Liz\nWill,Liz,Aubrey\nCaleb,Josh,Aubrey";
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		String[] options = new String[] {"-p","1", "-t", "5", "-v","1"};
+		
+		g.main(options);
+		
+		assertEquals(g.iterations[0].proposal, 1);
+		assertEquals(g.iterations[0].teamsize, 5);
+		assertEquals(g.iterations[0].verbosity, 1);
+	}
+	
+	@Test
+	public void testNotEnoughPeople()   throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------testNotEnoughPeople------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Eden,Xander\nAshley,Will,Xander\nXander,Gerry,Ashley\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Eden,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Will,Josh\nAubrey,Madison\nMadison,Will,Carter\nLiz,Aaron,Madison\nAaron,Will,Liz\nWill,Liz,Aubrey";
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		String[] options = new String[] {"-p","1", "-t", "5", "-v","1"};
+		
+		g.main(options);
+		
+		assertEquals(g.iterations[0].proposal, 1);
+		assertEquals(g.iterations[0].teamsize, 5);
+		assertEquals(g.iterations[0].verbosity, 1);
+	}
 }
