@@ -8,6 +8,7 @@ import java.io.*;
  *  Date   : 5/6/2020
  *
  *
+ *
  ******************************************************************************/
 public class GoogleHappy 
 {
@@ -298,16 +299,40 @@ public class GoogleHappy
 		return fnUser;
 	}
 	
+	public int placeHolder = 0;
+	public User[] findPlaceHolders(User[] users)
+	{
+		
+		int remainder = count % teamsize;
+		if( teamsize-remainder != teamsize)
+			placeHolder = teamsize-remainder;
+		
+		User userPlace = new User("PlaceHolder", -1);
+		
+		for(int i = 0; i < count+placeHolder; i++)
+		{
+			if(i >= count)
+			{	
+				users[i] = userPlace;				
+			}
+		}
+		
+		count = count+placeHolder;
+		
+		return users;
+	}
 	
 	//////////////////////////////////////
 	public User[] fillTeams(User[] users)
 	{
+		
+		findPlaceHolders(users);
 		User fnUser1 = new User("NothingHere", -1);
 		teams = new User[count];
 		//fill the first spots of the teams	
 		for(int i = 0; i < count/teamsize; i++)
 			teams[i*teamsize] = users[i];
-		
+
 		
 		boolean found = false;
 		//give the first people their preferences and then the seconds picks theirs so on...
@@ -317,7 +342,7 @@ public class GoogleHappy
 			{	
 				while(found == false)
 				{	
-					
+
 					if(teams[i*teamsize+n] == null)
 					{
 						found = true;
@@ -362,11 +387,12 @@ public class GoogleHappy
 				n++;
 			}	
 		
-		User[] cut = new User[n];
+		User[] cut = new User[n-placeHolder];
 		
 		for(int i = 0; i < cut.length; i++)
 		{	
-			cut[i] = temp[i];
+			if(!(temp[i].name.equals("PlaceHolder")))
+				cut[i] = temp[i];
 		}
 		
 		//fill the empty spots with NothingHere
@@ -391,20 +417,15 @@ public class GoogleHappy
 			if(Arrays.asList(smallTeams).contains(fnUser1))
 			{	
 				for(int i = 0; i < cut.length; i++)
-				{	
-					
-					
+				{						
 					for(int a = 1; a < cut[i].pref.length; a++)
-					{	
-						
+					{		
 						for(int p = 0; p < smallTeams.length; p++)
 						{	
-							
 							if(cut[i].pref[a].equals(smallTeams[p].name))
 							{	
 								for(int x = 0; x < smallTeams.length; x++)
 								{	
-									
 									if(smallTeams[x].name.equals("NothingHere"))
 									{	
 										smallTeams[x] = cut[i];
@@ -424,8 +445,6 @@ public class GoogleHappy
 											if(tempCut[h] != null)
 													cut[h] = tempCut[h];
 											
-											
-
 										}
 											
 										System.arraycopy(smallTeams, 0, teams, t*teamsize, teamsize);
@@ -440,15 +459,24 @@ public class GoogleHappy
 			}
 		}
 		
+		
+		
 		//puts the reaming people that didnt get a spot on to an empty team
+		User userPlace = new User("PlaceHolder", -1);
 		for(int i = 0, p = 0; i < teams.length; i++)
 			if(teams[i].name.equals("NothingHere"))
 			{	
-				teams[i] = cut[p];
-				p++;
+				if(p < cut.length)
+				{	
+					teams[i] = cut[p];
+					p++;
+				}
+				else	
+					teams[i] = userPlace;
+				
+
 			}
 			
-
 		printTeams(teams);
 
 		return teams;
