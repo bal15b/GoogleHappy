@@ -297,6 +297,28 @@ public class GoogleHappy
 		return fnUser;
 	}
 	
+	//if there is not enough people to fill all the teams then add placeholders
+	public User[] findPlaceHolders(User[] users)
+	{
+		int placeHolder = 0;
+		int remainder = count % teamsize;
+		if( teamsize-remainder != teamsize)
+			placeHolder = teamsize-remainder;
+	
+		User userPlace = new User("PlaceHolder", -1);
+		
+		for(int i = 0; i < count+placeHolder; i++)
+		{
+			if(i >= count)
+			{	
+				users[i] = userPlace;				
+			}
+		}
+		
+		count = count+placeHolder;
+		
+		return users;
+	}
 	
 	//////////////////////////////////////
 	public User[] fillTeams(User[] users)
@@ -307,6 +329,7 @@ public class GoogleHappy
 		for(int i = 0; i < count/teamsize; i++)
 			teams[i*teamsize] = users[i];
 		
+		findPlaceHolders(users);
 		
 		boolean found = false;
 		//give the first people their preferences and then the seconds picks theirs so on...
