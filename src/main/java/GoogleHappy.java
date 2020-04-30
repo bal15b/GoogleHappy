@@ -363,7 +363,6 @@ public class GoogleHappy
 			}	
 		
 		User[] cut = new User[n];
-		
 		for(int i = 0; i < cut.length; i++)
 		{	
 			cut[i] = temp[i];
