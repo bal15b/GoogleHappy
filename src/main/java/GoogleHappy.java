@@ -7,7 +7,6 @@ import java.io.*;
  *  Task   : Do something for the project
  *  Date   : 5/6/2020
  *
- *
  ******************************************************************************/
 public class GoogleHappy 
 {
