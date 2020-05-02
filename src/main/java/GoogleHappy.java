@@ -908,11 +908,14 @@ public class GoogleHappy
   public void primaryFunction(int it)
   {
 	a = it;
+	  
+	 if(teamsize == 0)
+	 	teamsize = 3;
 	if (it == 0)
 	{
 		//defines map
 		p = new PageRank();
-		teamsize = 3;
+		
 
 		//loads the users and their prefs
 		prefs(mentioned_people);
