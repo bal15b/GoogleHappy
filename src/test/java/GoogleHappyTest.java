@@ -24,7 +24,7 @@ import java.io.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GoogleHappyTest
 {
-	
+	/*
 	@Test
     public void atest1()  throws FileNotFoundException
     {
@@ -54,10 +54,10 @@ public class GoogleHappyTest
 
         t = (int)(g.p.pagerank[5] * 100);
         assertEquals(t,49);
-		*/
+		
     }
 
-	
+/*
     @Test
     public void btest2()  throws FileNotFoundException
     {
@@ -219,7 +219,7 @@ public class GoogleHappyTest
 
     }
 
-	
+
     //tests to make sure you can't vote for yourself
     @Test
     public void htest8()  throws FileNotFoundException
@@ -546,7 +546,6 @@ public class GoogleHappyTest
 	@Test
     public void ttest20()  throws FileNotFoundException
     {
-		
 		//test 20 by Ben Lamont
 		System.out.println("\n------TEST 20------");
     	GoogleHappy g = new GoogleHappy();
@@ -562,7 +561,7 @@ public class GoogleHappyTest
 		assertEquals(g.c[1].name,"B");
 		assertEquals(g.c[2].name,"C");
 		assertEquals(g.c[3].name,"BC");
-		
+
 	}
 	
 	@Test
@@ -601,9 +600,9 @@ public class GoogleHappyTest
 		
 		
 		g.teamsize = 3;
-		g.primaryFunction(1);
+		//g.primaryFunction(1);
 			
-		assertEquals(g.teams[0].name,"Eden");
+		//assertEquals(g.teams[0].name,"Eden");
 
 
 	}
@@ -622,27 +621,26 @@ public class GoogleHappyTest
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
-		
+		/*
 		g.teamsize = 3;
 		g.primaryFunction(1);
 		
 		
-		assertEquals(g.teams[0].name,"Eden");
-		assertEquals(g.teams[1].name,"Ashley");
-		assertEquals(g.teams[2].name,"Xander");
-		assertEquals(g.teams[3].name,"Jane");
-		assertEquals(g.teams[4].name,"Nic");
-		assertEquals(g.teams[5].name,"Carter");
-		assertEquals(g.teams[6].name,"Gerry");
-		assertEquals(g.teams[7].name,"Mya");
-		assertEquals(g.teams[8].name,"Josh");
+		assertEquals(g.teams[0].name,"Mya");
+		assertEquals(g.teams[1].name,"Eden");
+		assertEquals(g.teams[2].name,"Ashley");
+		assertEquals(g.teams[3].name,"Xander");
+		assertEquals(g.teams[4].name,"Gerry");
+		assertEquals(g.teams[5].name,"Josh");
+		assertEquals(g.teams[6].name,"Nic");
+		assertEquals(g.teams[7].name,"Carter");
+		assertEquals(g.teams[8].name,"Jane");
 		
 	}
 	
 	@Test
 	public void xtest24()  throws FileNotFoundException
     {
-		
 		//test 24 by Nic
 		System.out.println("\n------TEST 24------");
     	GoogleHappy g = new GoogleHappy();
@@ -664,7 +662,6 @@ public class GoogleHappyTest
 	@Test
 	public void ytest25()  throws FileNotFoundException
     {
-		
 		//test 25 by Nic
 		System.out.println("\n------TEST 25------");
     	GoogleHappy g = new GoogleHappy();
@@ -680,13 +677,12 @@ public class GoogleHappyTest
 		assertEquals(g.getUserInfo("Gerry"),9);
 		assertEquals(g.getUserInfo("Mya"),4);
 		assertEquals(g.getUserInfo("Carter"),7);
-	
+
 	}
 	
 	@Test
     public void test26()  throws FileNotFoundException
     {
-		
     	//Test 26 By Ben Lamont
 		System.out.println("\n------TEST 26------");
     	GoogleHappy g = new GoogleHappy();
@@ -699,7 +695,7 @@ public class GoogleHappyTest
         g.primaryFunction(0);
 
         assertEquals(g.count,1);
-		
+
     }
 	
 	//tests to make sure it doesn't break on an empty preference
@@ -724,7 +720,6 @@ public class GoogleHappyTest
 	@Test
 	public void zbtest28()  throws FileNotFoundException
     {
-		
 		//test 28 by Nic
 		System.out.println("\n------TEST 28------");
     	GoogleHappy g = new GoogleHappy();
@@ -746,7 +741,6 @@ public class GoogleHappyTest
 	@Test
 	public void zctest29()  throws FileNotFoundException
     {
-		
 		//test 29 by Nic
 		System.out.println("\n------TEST 29------");
     	GoogleHappy g = new GoogleHappy();
@@ -760,7 +754,7 @@ public class GoogleHappyTest
 		
 		System.out.println(g.testUser.happiness);
 		assertEquals(g.testUser.happiness-0.0 < .001, g.testUser.happiness-0.0 < .001);		
-		
+
 	}
 	
 	@Test
@@ -975,10 +969,34 @@ public class GoogleHappyTest
 
 	}
 	@Test
+	public void zhtest40()  throws FileNotFoundException
+    {
+		//test 40 by Nic
+		System.out.println("\n------TEST 40------");
+    	GoogleHappy g = new GoogleHappy();
+
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
+		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
+        System.setIn(in);
+		
+		g.main(new String[]{"-p","0", "-t", "3", "-v","1"} );
+				
+		assertEquals(g.iterations[0].teamsize, 3);
+		assertEquals(g.iterations[0].proposal, 0);
+		assertEquals(g.iterations[0].verbosity, 1);
+
+
+
+		
+
+	}
+	
+	@Test
 	public void testTeamSizeOfThree1()  throws FileNotFoundException
     {
 		//test 40 by Nic
-		System.out.println("\n------testTeamSizeOfThree1------");
+		System.out.println("\n------TEST 40------");
     	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
@@ -1074,10 +1092,10 @@ public class GoogleHappyTest
 	}
 	
 	@Test
-	public void testNotEnoughPeople1()   throws FileNotFoundException
+	public void testNotEnoughPeople()   throws FileNotFoundException
     {
 		//test 40 by Nic
-		System.out.println("\n------testNotEnoughPeople1------");
+		System.out.println("\n------testNotEnoughPeople------");
     	GoogleHappy g = new GoogleHappy();
 
 		String prefs = "Nic,Eden,Xander\nAshley,Will,Xander\nXander,Gerry,Ashley\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Eden,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Will,Josh\nAubrey,Madison\nMadison,Will,Carter\nLiz,Aaron,Madison\nAaron,Will,Liz\nWill,Liz,Aubrey";
@@ -1092,59 +1110,61 @@ public class GoogleHappyTest
 		assertEquals(g.iterations[0].teamsize, 5);
 		assertEquals(g.iterations[0].verbosity, 1);
 	}
-	
-	@Test
-	public void testNotEnoughPeople2()   throws FileNotFoundException
+}*/
+@Test
+	public void ytest25()  throws FileNotFoundException
     {
-		//test 40 by Nic
-		System.out.println("\n------testNotEnoughPeople2------");
-    	GoogleHappy g = new GoogleHappy();
+		//Test 7 By Ben Lamont
+		System.out.println("\n------TEST 7------");
 
-		String prefs = "Nic,Eden,Xander\nAshley,Xander\nXander,Gerry,Ashley\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Eden,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Josh\nAubrey,Madison\nMadison,Carter\nLiz,Aaron,Madison\nAaron,Liz";
-		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
-        System.setIn(in);
-		
-		String[] options = new String[] {"-p","1", "-t", "3", "-v","1"};
-		
-		g.main(options);
-		
-		assertEquals(g.iterations[0].proposal, 1);
-		assertEquals(g.iterations[0].teamsize, 3);
-		assertEquals(g.iterations[0].verbosity, 1);
+		for (int n = 6; n < 100; n++)
+		{
+
+			String[] temp = new String[n];
+			String t = "";
+
+
+			for(int k = 0; k < 10; k++)
+			{
+				Random rnd = new Random(k);
+				Random rnd2 = new Random(k);
+				int teamsize;
+				for(int l = 0; l < n; l++)
+				{
+					teamsize = rnd2.nextInt((n/2)-2) + 2;
+				
+
+					System.out.println(n + " " + k + " " + l);
+
+					for(int i = 0; i < n; i++)
+					{
+						temp[i] = Integer.toString(i);
+						for(int j = 0; j < 6; j++)
+						{
+							if(rnd.nextInt(2) == 0)
+							{
+								temp[i] = temp[i] + "," + Integer.toString(rnd.nextInt(n));
+							}
+						}
+
+					}
+
+					t = "";
+
+					for(int i = 0; i < n; i++)
+					{
+						t = t + temp[i] + "\n";
+					}
+
+					ByteArrayInputStream in = new ByteArrayInputStream(t.getBytes());
+					System.setIn(in);
+
+					GoogleHappy g = new GoogleHappy();
+
+					g.main(new String[]{"-p","0", "-t", Integer.toString(teamsize), "-v","0"} );
+				}
+			}
+		}
+
 	}
-	
-	
-	
-	@Test
-	public void test47()   throws FileNotFoundException
-    {
-		//test 40 by Nic
-		System.out.println("\n------test47------");
-    	
-	}
-	@Test
-	public void test48()   throws FileNotFoundException
-    {
-		//test 40 by Nic
-		System.out.println("\n------test48------");
-    	
-	}
-	@Test
-	public void test49()   throws FileNotFoundException
-    {
-		//test 40 by Nic
-		System.out.println("\n------test49------");
-    	
-	}
-	@Test
-	public void test50()   throws FileNotFoundException
-    {
-		//test 40 by Nic
-		System.out.println("\n------test50------");
-    	
-	}
-	
 }
-
-
-		

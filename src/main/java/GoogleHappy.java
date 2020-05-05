@@ -477,7 +477,7 @@ public class GoogleHappy
 
 			}
 			
-		printTeams(teams);
+		//printTeams(teams);
 
 		return teams;
 		
@@ -587,12 +587,24 @@ public class GoogleHappy
     scanner.close();
   }
 
+  private int getHappinessu(User u, int n)
+  {
+
+  }
+
   private int getHappiness(User[] u, int n)
   {
     double hap = 0;
 
-    int[] den = {1,1,3,6,10,15,21};
 
+
+
+
+
+
+
+    int[] den = {1,1,3,6,10,15,21};
+ 
     for(int i = 0; i < n; i++)
     {
       for(int j = 0; j < n; j++)
@@ -720,10 +732,34 @@ public class GoogleHappy
       numberOfTeams++;
     }
 
+    int here = 0;
+    boolean here2 = true;
+    if (tempTeam.people[0].name == tempTeam.people[1].name)
+    {
+      for (int i = 0; i < numberOfTeams; i++)
+      {
+        if (officialTeams[i].current < officialTeams[i].max && here2)
+        {
+          here2 = false;
+          here = i;
+        }
+        else if (officialTeams[i].current < officialTeams[i].max && checkTeam(officialTeams[i], Arrays.copyOfRange(tempTeam.people, 0, 1)) > checkTeam(officialTeams[here], Arrays.copyOfRange(tempTeam.people, 0, 1)))
+        {
+          here = i;
+        }
+      }
+
+      if (!onTeams(tempTeam.people[0]))
+      {
+        officialTeams[here].addUsers2(tempTeam.people[0],1);
+        return;
+      }
+      
+    }
+
 
     if (onTeams(tempTeam.people[0]) && onTeams(tempTeam.people[1]))
     {
-
       //both are on a team
       return;
     }
@@ -776,6 +812,15 @@ public class GoogleHappy
       }
 
       int bestA = 0;
+      boolean looking = true;
+      for (int i = 0; i < numberOfTeams; i++)
+      {
+        if(officialTeams[i].current < officialTeams[i].max && looking)
+        {
+          bestA = i;
+          looking = false;
+        }
+      }
       for (int i = 0; i < numberOfTeams; i++)
       {
         if(checkTeam(officialTeams[i], Arrays.copyOfRange(tempTeam.people, 0, 1)) > bestA && officialTeams[i].current != officialTeams[i].max)
@@ -816,12 +861,12 @@ public class GoogleHappy
       {
         if(checkTeam(bestTeam, tempTeam.people) < checkTeam(officialTeams[i], tempTeam.people))
         {
-		  if(officialTeams[i].current+1 < officialTeams[i].max)
-		  {
-			bestTeam = officialTeams[i];
-          	found = true;
-          	index = i;
-		  }
+          if(officialTeams[i].current+1 < officialTeams[i].max)
+          {
+            bestTeam = officialTeams[i];
+            found = true;
+            index = i;
+          }
         }
       }
 
@@ -830,26 +875,36 @@ public class GoogleHappy
         officialTeams[index].addUsers(tempTeam.people,2);
         return;
       }
-
+      found = false;
       int bestA = 0;
       for (int i = 0; i < numberOfTeams; i++)
       {
         if(checkTeam(officialTeams[i], Arrays.copyOfRange(tempTeam.people, 0, 1)) > bestA && officialTeams[i].current != officialTeams[i].max)
         {
           bestA = i;
+          found = true;
         }
       }
-      officialTeams[bestA].addUsers(Arrays.copyOfRange(tempTeam.people, 0, 1), 1);
+      if (found)
+      {
+        officialTeams[bestA].addUsers(Arrays.copyOfRange(tempTeam.people, 0, 1), 1);
+      }
+      
       int bestB = 0;
+      found = false;
 
       for (int i = 0; i < numberOfTeams; i++)
       {
         if(checkTeam(officialTeams[i], Arrays.copyOfRange(tempTeam.people, 1, 2)) > bestB && officialTeams[i].current != officialTeams[i].max)
         {
           bestB = i;
+          found = true;
         }
       }
-      officialTeams[bestB].addUsers(Arrays.copyOfRange(tempTeam.people, 1, 2), 1);
+      if (found)
+      {
+        officialTeams[bestB].addUsers(Arrays.copyOfRange(tempTeam.people, 1, 2), 1);
+      }
 
     }
   }
@@ -858,6 +913,11 @@ public class GoogleHappy
   public void primaryFunction(int it)
   {
 	a = it;
+
+  if (teamsize == 0)
+  {
+    teamsize = 3;
+  }
 	if (it == 0)
 	{
 		//defines map
@@ -905,6 +965,21 @@ public class GoogleHappy
 		{
 			placeTemp(tempTeams[k]);
 		}
+
+    for (int i = 0; i < count; i++)
+    {
+      if(!onTeams(c[i]))
+      {
+        for (int j = 0; j < numberOfTeams; j++)
+        {
+          if(officialTeams[j].current < officialTeams[j].max)
+          {
+            officialTeams[j].addUsers2(c[i],1);
+          }
+        }
+      }
+    }
+
 		int place = 0;
 		for (int i = 0; i < numberOfTeams; i++)
 		{
@@ -912,12 +987,12 @@ public class GoogleHappy
 			for (int j = 0; j < officialTeams[i].current; j++)
 			{
 				c[place] = officialTeams[i].people[j];
+        place ++;
 			}
 		}
 
-		
 		//printTeams(c);
-
+ 
 	}
 	else if (it == 1)
 	{
@@ -934,7 +1009,7 @@ public class GoogleHappy
 		
 		orderByPR(c);
 		if(test == 0)
-			fillTeams(c);
+		c = fillTeams(c);
 
 	}
 	
@@ -946,7 +1021,6 @@ public class GoogleHappy
 		//creates the main GoogleHappy object and runs primaryFunction
 		iterations[0] = new GoogleHappy();
 		iterations[1] = new GoogleHappy();
-		iterations[2] = new GoogleHappy();
 
 		int v = 0;
 		int p = 0;
@@ -984,15 +1058,12 @@ public class GoogleHappy
 
 		iterations[0].verbosity = v;
 		iterations[1].verbosity = v;
-		iterations[2].verbosity = v;
 
 		iterations[0].teamsize = t;
 		iterations[1].teamsize = t;
-		iterations[2].teamsize = t;
 
 		iterations[0].proposal = p;
 		iterations[1].proposal = p;
-		iterations[2].proposal = p;
 
 		ByteArrayInputStream in = new ByteArrayInputStream(temp.getBytes());
         System.setIn(in);
@@ -1001,14 +1072,10 @@ public class GoogleHappy
 		ByteArrayInputStream in2 = new ByteArrayInputStream(temp.getBytes());
         System.setIn(in2);
 		iterations[1].primaryFunction(1);
-
-		ByteArrayInputStream in3 = new ByteArrayInputStream(temp.getBytes());
-        System.setIn(in3);
-		iterations[2].primaryFunction(2);
-		/*
+		
 		int place = 0;
-		int besthap = iterations[0].totalhap();
-		int potentialhap = iterations[1].totalhap();
+		int besthap = iterations[0].getHappiness(iterations[0].c, iterations[0].count-1);
+		int potentialhap = iterations[1].getHappiness(iterations[1].c, iterations[1].count-1);
 		
 		if (potentialhap > besthap)
 		{
@@ -1016,24 +1083,22 @@ public class GoogleHappy
 			besthap = potentialhap;
 		}
 
-		potentialhap = iterations[2].totalhap();
+		
 
-		if (potentialhap > besthap)
-		{
-			place = 2;
-			besthap = potentialhap;
-		}
-
-		iterations[place].finalPrint();
-		*/	
+		iterations[place].printTeams(iterations[place].c);
+			
 			
 	}
   
  	    //send in the hashmap,0 to just set an array send in hashmap,1 to output a set of teams
 	  public String[] getKeys(HashMap<String, Integer> hash, int onOff)
 	  {
-		if(teamsize == 0)
-			teamsize = 3;
+
+      if (teamsize == 0)
+      {
+        teamsize = 3;
+      }
+		  
 		//Makes an array of just the names of people
 		String allNames[] = new String [hash.size()];
 		int i = 0;
@@ -1066,25 +1131,23 @@ public class GoogleHappy
 		return allNames;
 	  }
 		  
-		public void printTeams(User[] users)
-		  {
-			User fnUser = new User("NothingHere", -1);
-			//print out the names and divide them into groups of 3
-			System.out.println("\nTEAMS\n-------");
-			int i = 1;
-			for( int n = 0; n < count; n++)
-			{
-				if(users[n] == null)
-					users[n] = fnUser;
-				if(n%teamsize==0)
-				{
-					if(n!=0&&n!=1)
-						System.out.print("\n");
-					System.out.println("Team " + (i));
-					i++;
-				}
-						
-				System.out.println(users[n].name);
-			}
-		  }
+    public void printTeams(User[] users)
+    {
+
+        System.out.println("Total Happiness " + "this is where all happiness is combined to a total"); 
+        int x = 0;
+        for(int i = 0; i < count/teamsize; i++)
+        {
+            System.out.printf("Team " + (i+1) + "(" + getHappiness(Arrays.copyOfRange(c, i*teamsize, (i*teamsize)+teamsize), teamsize) + "): "); //i+1 because we dont want Team 0
+            for(int p = 0; p < teamsize; p++)
+            {
+                if(p!=0)
+                    System.out.printf(", ");
+                System.out.printf(users[x].name + "(" + users[x].happiness + ")");
+                x++;
+            }
+            System.out.println("");
+        }
+        System.out.println("end");
+    }
 }
