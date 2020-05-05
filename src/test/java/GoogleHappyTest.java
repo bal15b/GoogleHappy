@@ -995,7 +995,7 @@ public class GoogleHappyTest
 	@Test
 	public void testTeamSizeOfThree1()  throws FileNotFoundException
     {
-		//test 40 by Nic
+		//test 41 by Nic
 		System.out.println("\n------TEST 40------");
     	GoogleHappy g = new GoogleHappy();
 
@@ -1015,7 +1015,7 @@ public class GoogleHappyTest
 	@Test
 	public void testTeamSizeOfFour1()  throws FileNotFoundException
     {
-		//test 40 by Nic
+		//test 42 by Nic
 		System.out.println("\n------testTeamSizeOfFour1------");
     	GoogleHappy g = new GoogleHappy();
 
@@ -1034,7 +1034,7 @@ public class GoogleHappyTest
 	@Test
 	public void testTeamSizeOfFour2()   throws FileNotFoundException
     {
-		//test 40 by Nic
+		//test 43 by Nic
 		System.out.println("\n------testTeamSizeOfFour2------");
     	GoogleHappy g = new GoogleHappy();
 
@@ -1054,7 +1054,7 @@ public class GoogleHappyTest
 	@Test
 	public void testTeamSizeOfFive1()   throws FileNotFoundException
     {
-		//test 40 by Nic
+		//test 44 by Nic
 		System.out.println("\n------testTeamSizeOfFive1------");
     	GoogleHappy g = new GoogleHappy();
 
@@ -1074,7 +1074,7 @@ public class GoogleHappyTest
 	@Test
 	public void testTeamSizeOfFive2()   throws FileNotFoundException
     {
-		//test 40 by Nic
+		//test 45 by Nic
 		System.out.println("\n------testTeamSizeOfFive2------");
     	GoogleHappy g = new GoogleHappy();
 
@@ -1094,7 +1094,7 @@ public class GoogleHappyTest
 	@Test
 	public void testNotEnoughPeople()   throws FileNotFoundException
     {
-		//test 40 by Nic
+		//test 46 by Nic
 		System.out.println("\n------testNotEnoughPeople------");
     	GoogleHappy g = new GoogleHappy();
 
@@ -1114,7 +1114,7 @@ public class GoogleHappyTest
 @Test
 	public void ytest25()  throws FileNotFoundException
     {
-		//Test 7 By Ben Lamont
+		//Test 47 By Ben Lamont
 		System.out.println("\n------TEST 7------");
 
 		for (int n = 6; n < 100; n++)
