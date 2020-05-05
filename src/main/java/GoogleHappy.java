@@ -123,27 +123,7 @@ public class GoogleHappy
 
 
 
-
-
-
-
 	public int a;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -224,20 +204,13 @@ public class GoogleHappy
 			return id;
 		}	
 
-    //print users info
+ 
 		public void setHappiness(double n)
 		{
 			happiness = n;
 		}
 
   }
-
-
-
-
-
-
-
 
 
 
@@ -284,15 +257,6 @@ public class GoogleHappy
 
   
 
-
-
-
-
-
-
-
-  
-
   /*Global Variables*/
   public int count;
   public int teamsize;
@@ -300,7 +264,7 @@ public class GoogleHappy
   public int proposal;
   public int test = 0;
   public PageRank p;
-  public	User testUser = new User("testUser", -1);
+  public User testUser = new User("testUser", -1);
   public User[] c;
   public User[] ordered;
   public User[] teams;
@@ -309,25 +273,11 @@ public class GoogleHappy
   
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  /*Functions*/
   //testing
 	public int getUserInfo(String userName)
 	{
-		for(int i = 0; i < 9; i++)
+		for(int i = 0; i < count; i++)
 		{
 			if(c[i].name.equals(userName))
 				return c[i].printUserInfo();
@@ -336,19 +286,19 @@ public class GoogleHappy
 		
 	}
 
-
-  private User getThisUser(User[] list, String name)
+	private User getThisUser(User[] list, String user)
 	{
-		for(int i = 0; i < list.length; i++)
+		for(int i = 0; i < count; i++)
 		{
-			if(list[i].name.equals(name))
+			//System.out.println(list[i].name + " " + user);
+			if(list[i].name.equals(user))
 				return list[i];
 		}
 		
 		User fnUser = new User("getThisUserBroken", -1);
 		return fnUser;
 	}
-
+	
 	public int placeHolder = 0;
 	public User[] findPlaceHolders(User[] users)
 	{
@@ -372,7 +322,7 @@ public class GoogleHappy
 		return users;
 	}
 	
-  //////////////////////////////////////
+	//////////////////////////////////////
 	public User[] fillTeams(User[] users)
 	{
 		
@@ -908,14 +858,10 @@ public class GoogleHappy
   public void primaryFunction(int it)
   {
 	a = it;
-	  
-	 if(teamsize == 0)
-	 	teamsize = 3;
 	if (it == 0)
 	{
 		//defines map
 		p = new PageRank();
-		
 
 		//loads the users and their prefs
 		prefs(mentioned_people);
@@ -969,7 +915,8 @@ public class GoogleHappy
 			}
 		}
 
-		printTeams(c);
+		
+		//printTeams(c);
 
 	}
 	else if (it == 1)
@@ -991,9 +938,6 @@ public class GoogleHappy
 
 	}
 	
-    
-
-
 
   }
   public GoogleHappy[] iterations = new GoogleHappy[3];
@@ -1086,9 +1030,10 @@ public class GoogleHappy
 	}
   
  	    //send in the hashmap,0 to just set an array send in hashmap,1 to output a set of teams
-	  public static String[] getKeys(HashMap<String, Integer> hash, int onOff)
+	  public String[] getKeys(HashMap<String, Integer> hash, int onOff)
 	  {
-		  
+		if(teamsize == 0)
+			teamsize = 3;
 		//Makes an array of just the names of people
 		String allNames[] = new String [hash.size()];
 		int i = 0;
@@ -1105,7 +1050,7 @@ public class GoogleHappy
 			i = 1;
 			for( int n = 0; n < allNames.length; n++)
 			{
-				if(n%3==0)
+				if(n%teamsize==0)
 				{
 					if(n!=0&&n!=1)
 						System.out.print("\n");
@@ -1127,7 +1072,7 @@ public class GoogleHappy
 			//print out the names and divide them into groups of 3
 			System.out.println("\nTEAMS\n-------");
 			int i = 1;
-			for( int n = 0; n < 9; n++)
+			for( int n = 0; n < count; n++)
 			{
 				if(users[n] == null)
 					users[n] = fnUser;
