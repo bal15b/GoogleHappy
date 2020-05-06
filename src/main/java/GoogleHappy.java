@@ -307,13 +307,18 @@ public class GoogleHappy
 		if( teamsize-remainder != teamsize)
 			placeHolder = teamsize-remainder;
 		
+		if(verbosity != 0 && verbosity != 1)
+			System.out.println("Placeholders needed: " + placeHolder);
+		
 		User userPlace = new User("PlaceHolder", -1);
 		
 		for(int i = 0; i < count+placeHolder; i++)
 		{
 			if(i >= count)
 			{	
-				users[i] = userPlace;				
+				users[i] = userPlace;	
+				if(verbosity != 0 && verbosity != 1)
+					System.out.println("Placeholder placed at users[" + i + "]");
 			}
 		}
 		
@@ -329,10 +334,16 @@ public class GoogleHappy
 		findPlaceHolders(users);
 		User fnUser1 = new User("NothingHere", -1);
 		teams = new User[count];
+		
+		if(verbosity != 0 && verbosity != 1)
+			System.out.println("Teams array created at (" + count + ") size");
+		
 		//fill the first spots of the teams	
 		for(int i = 0; i < count/teamsize; i++)
 			teams[i*teamsize] = users[i];
 
+		if(verbosity != 0 && verbosity != 1)
+			System.out.println("First Person placed: " + users[0].name);
 		
 		boolean found = false;
 		//give the first people their preferences and then the seconds picks theirs so on...
@@ -351,23 +362,29 @@ public class GoogleHappy
 					{	
 						teams[i*teamsize+n+1] = getThisUser(users, teams[i*teamsize+n].pref[choice]);
 						found = true;
-						//System.out.println("1st");
+						if(verbosity != 0 && verbosity != 1)
+							System.out.println("User placed: " + teams[i*teamsize+n+1].name);
 					}
 					else if(choice + 1 < teams[i*teamsize+n].pref.length && (!(Arrays.asList(teams).contains(getThisUser(users, teams[i*teamsize+n].pref[choice+1])))))
 					{	
 						teams[i*teamsize+n+1] = getThisUser(users, teams[i*teamsize+n].pref[choice+1]);
 						found = true;
-						//System.out.println("2nd");
+						if(verbosity != 0 && verbosity != 1)
+							System.out.println("User placed: " + teams[i*teamsize+n+1].name);
 
 					}
 					else if(choice + 1 < teams[i*teamsize+n].pref.length)
 					{
 						choice++;
+						if(verbosity != 0 && verbosity != 1)
+							System.out.println("Checking next pref");
 						//System.out.println("3rd");
 					}
 					else
 					{
 						found = true;
+						if(verbosity != 0 && verbosity != 1)
+							System.out.println("None available...");
 						//System.out.println("4th");
 					}
 				}	
@@ -413,7 +430,8 @@ public class GoogleHappy
 		{	
 			System.arraycopy(teams, t*teamsize, smallTeams, 0, teamsize);
 
-			//if there are any open spots// the fnUser1 name is "NothingHere"
+			//if there are any open spots
+			// the fnUser1 name is "NothingHere"
 			if(Arrays.asList(smallTeams).contains(fnUser1))
 			{	
 				for(int i = 0; i < cut.length; i++)
@@ -429,6 +447,8 @@ public class GoogleHappy
 									if(smallTeams[x].name.equals("NothingHere"))
 									{	
 										smallTeams[x] = cut[i];
+										if(verbosity != 0 && verbosity != 1)
+											System.out.println(smallTeams[x].name + " found a team");
 
 										User[] tempCut = new User[cut.length];
 										int l = 0;
@@ -436,6 +456,7 @@ public class GoogleHappy
 											if(!(Arrays.asList(smallTeams).contains(getThisUser(users, cut[h].name))))
 											{	
 												tempCut[l] = getThisUser(users, cut[h].name);
+
 												l++;
 											}
 						
@@ -469,6 +490,8 @@ public class GoogleHappy
 				if(p < cut.length)
 				{	
 					teams[i] = cut[p];
+					if(verbosity != 0 && verbosity != 1)
+						System.out.println(teams[i].name + " found a team");
 					p++;
 				}
 				else	
@@ -477,7 +500,7 @@ public class GoogleHappy
 
 			}
 			
-		//printTeams(teams);
+		printTeams(teams);
 
 		return teams;
 		
