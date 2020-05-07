@@ -157,6 +157,7 @@ public class GoogleHappy
 			pref[j] = p[j];
 		  }
       }
+
     }
     User(String p, int i)
     {
@@ -197,7 +198,7 @@ public class GoogleHappy
 			{
 				if (i % 3 == 0)
 				{
-					System.out.println("Team " + i + "'s Happiness: " + getHappiness(Arrays.copyOfRange(c, i, i + 3),3));
+					//System.out.println("Team " + i + "'s Happiness: " + getHappinessteam(Arrays.copyOfRange(c, i, i + 3),3));
 				}
 			}
 			System.out.println("------");
@@ -237,6 +238,10 @@ public class GoogleHappy
       max = n;
       people = new User[max];
       current = 0;
+      for(int i = 0; i < max; i++)
+      {
+        people[i] = new User("", -1);
+      }
     }
 
     public void addUsers(User[] u, int n)
@@ -307,7 +312,7 @@ public class GoogleHappy
 		if( teamsize-remainder != teamsize)
 			placeHolder = teamsize-remainder;
 		
-		if(verbosity != 0 && verbosity != 1)
+		if(verbosity == 3 || verbosity == 4)
 			System.out.println("Placeholders needed: " + placeHolder);
 		
 		User userPlace = new User("PlaceHolder", -1);
@@ -317,7 +322,7 @@ public class GoogleHappy
 			if(i >= count)
 			{	
 				users[i] = userPlace;	
-				if(verbosity != 0 && verbosity != 1)
+				if(verbosity == 3 || verbosity == 4)
 					System.out.println("Placeholder placed at users[" + i + "]");
 			}
 		}
@@ -335,14 +340,14 @@ public class GoogleHappy
 		User fnUser1 = new User("NothingHere", -1);
 		teams = new User[count];
 		
-		if(verbosity != 0 && verbosity != 1)
+		if(verbosity == 3 || verbosity == 4)
 			System.out.println("Teams array created at (" + count + ") size");
 		
 		//fill the first spots of the teams	
 		for(int i = 0; i < count/teamsize; i++)
 			teams[i*teamsize] = users[i];
 
-		if(verbosity != 0 && verbosity != 1)
+		if(verbosity == 3 || verbosity == 4)
 			System.out.println("First Person placed: " + users[0].name);
 		
 		boolean found = false;
@@ -362,28 +367,28 @@ public class GoogleHappy
 					{	
 						teams[i*teamsize+n+1] = getThisUser(users, teams[i*teamsize+n].pref[choice]);
 						found = true;
-						if(verbosity != 0 && verbosity != 1)
+						if(verbosity == 3 || verbosity == 4)
 							System.out.println("User placed: " + teams[i*teamsize+n+1].name);
 					}
 					else if(choice + 1 < teams[i*teamsize+n].pref.length && (!(Arrays.asList(teams).contains(getThisUser(users, teams[i*teamsize+n].pref[choice+1])))))
 					{	
 						teams[i*teamsize+n+1] = getThisUser(users, teams[i*teamsize+n].pref[choice+1]);
 						found = true;
-						if(verbosity != 0 && verbosity != 1)
+						if(verbosity == 3 || verbosity == 4)
 							System.out.println("User placed: " + teams[i*teamsize+n+1].name);
 
 					}
 					else if(choice + 1 < teams[i*teamsize+n].pref.length)
 					{
 						choice++;
-						if(verbosity != 0 && verbosity != 1)
+						if(verbosity == 3 || verbosity == 4)
 							System.out.println("Checking next pref");
 						//System.out.println("3rd");
 					}
 					else
 					{
 						found = true;
-						if(verbosity != 0 && verbosity != 1)
+						if(verbosity == 3 || verbosity == 4)
 							System.out.println("None available...");
 						//System.out.println("4th");
 					}
@@ -447,7 +452,7 @@ public class GoogleHappy
 									if(smallTeams[x].name.equals("NothingHere"))
 									{	
 										smallTeams[x] = cut[i];
-										if(verbosity != 0 && verbosity != 1)
+										if(verbosity == 3 || verbosity == 4)
 											System.out.println(smallTeams[x].name + " found a team");
 
 										User[] tempCut = new User[cut.length];
@@ -490,7 +495,7 @@ public class GoogleHappy
 				if(p < cut.length)
 				{	
 					teams[i] = cut[p];
-					if(verbosity != 0 && verbosity != 1)
+					if(verbosity == 3 || verbosity == 4)
 						System.out.println(teams[i].name + " found a team");
 					p++;
 				}
@@ -500,8 +505,6 @@ public class GoogleHappy
 
 			}
 			
-		printTeams(teams);
-
 		return teams;
 		
 	}
@@ -610,35 +613,94 @@ public class GoogleHappy
     scanner.close();
   }
 
-  private int getHappinessu(User u, int n)
+  private int getHappinesspair(User a, User b)
   {
+    double hap;
+
+    if (a.total_prefs == 0 || a.id == -1 || b.id == -1)
+    {
+      return 0;
+    }
+    else if (a.total_prefs == 1 && p.path[a.id][b.id] == 1)
+    {
+      return 1000;
+    }
+
+
+    double temp = 1000;
+    double[] v = new double[10];
+    v[0] = 0;
+    double per = 0.75;
+
+
+    for(int i = 1; i <= a.total_prefs; i++)
+    {
+      v[i] = temp * per;
+      temp = v[i];
+      per -= 0.05;
+    }
+
+    int sub = a.total_prefs;
+    if (v[p.path[a.id][b.id]] == 0)
+    {
+      sub = 0;
+    }
+
+    return (int) (v[p.path[a.id][b.id]] - sub);
 
   }
 
-  private int getHappiness(User[] u, int n)
+  private int getHappinessteam(User[] u, int n, int per)
   {
     double hap = 0;
 
+    if (per != -1)
+    {
+      for(int i = 0; i < n; i++)
+      {
+        if(per != i)
+        {
+          hap += getHappinesspair(u[per],u[i]);
+        }
+      }
+      return (int) hap;
+    }
 
 
 
-
-
-
-
-    int[] den = {1,1,3,6,10,15,21};
- 
     for(int i = 0; i < n; i++)
     {
-      for(int j = 0; j < n; j++)
+      for (int j = 0; j < n; j++)
       {
-        if (p.path[u[j].id][u[i].id] != 0)
+        if (i != j)
         {
-          hap += ((u[j].total_prefs - p.path[u[j].id][u[i].id] + 1.0)/den[u[j].total_prefs]) * 100;
+          hap += getHappinesspair(u[i],u[j]);
 
         }
       }
     }
+    return (int) hap;
+  }
+
+  private int getHappinessoverall(User[] u, int n)
+  {
+    int numberOfTeams = count/teamsize;
+
+    double hap = 0; 
+
+    if (count%teamsize != 0)
+    {
+      numberOfTeams++;
+    }
+
+
+
+    for (int i = 0; i < numberOfTeams; i++)
+    {
+      hap += getHappinessteam(Arrays.copyOfRange(c, i*teamsize, (i*teamsize)+teamsize), teamsize,-1);
+    }
+
+
     return (int)hap;
   }
 
@@ -651,7 +713,7 @@ public class GoogleHappy
     System.arraycopy(t.people, 0, result, 0, aLen);
     System.arraycopy(u, 0, result, aLen, bLen);
 
-    int back = getHappiness(result, (aLen + bLen));
+    int back = getHappinessteam(result, (aLen + bLen),-1);
 
     return back;
   }
@@ -705,17 +767,17 @@ public class GoogleHappy
     arr[0] = o;
     arr[1] = potential;
 
-    int currentHap = getHappiness(arr,2);
+    int currentHap = getHappinessteam(arr,2,-1);
     for (int i=1; i < o.total_prefs; i++)
     {
       potential2 = c[mentioned_people.get(o.pref[i])];
 
       arr[1] = potential2;
       
-      if (getHappiness(arr,2)-i > currentHap)
+      if (getHappinessteam(arr,2,-1)-i > currentHap)
       {
         place = i;
-        currentHap = getHappiness(arr,2)-i;
+        currentHap = getHappinessteam(arr,2,-1)-i;
       }
       
     }
@@ -986,7 +1048,23 @@ public class GoogleHappy
 		//puts people on teams
 		for (int k = 0; k < count; k++)
 		{
-			placeTemp(tempTeams[k]);
+
+      if(verbosity == 2 || verbosity == 4)
+      {
+        for (int i = 0; i < numberOfTeams; i++)
+        {
+          System.out.println("Team " + (i+1));
+          for (int j = 0; j < officialTeams[i].current; j++)
+          {
+            System.out.printf(officialTeams[i].people[j].name + " ");
+          }
+          System.out.println("");
+        }
+        System.out.println("");
+
+      }
+      placeTemp(tempTeams[k]);
+
 		}
 
     for (int i = 0; i < count; i++)
@@ -1007,7 +1085,7 @@ public class GoogleHappy
 		for (int i = 0; i < numberOfTeams; i++)
 		{
 
-			for (int j = 0; j < officialTeams[i].current; j++)
+			for (int j = 0; j < officialTeams[i].max; j++)
 			{
 				c[place] = officialTeams[i].people[j];
         place ++;
@@ -1097,8 +1175,10 @@ public class GoogleHappy
 		iterations[1].primaryFunction(1);
 		
 		int place = 0;
-		int besthap = iterations[0].getHappiness(iterations[0].c, iterations[0].count-1);
-		int potentialhap = iterations[1].getHappiness(iterations[1].c, iterations[1].count-1);
+
+
+		int besthap = iterations[0].getHappinessoverall(iterations[0].c, iterations[0].count-1);
+		int potentialhap = iterations[1].getHappinessoverall(iterations[1].c, iterations[1].count-1);
 		
 		if (potentialhap > besthap)
 		{
@@ -1106,9 +1186,16 @@ public class GoogleHappy
 			besthap = potentialhap;
 		}
 
-		
+		if (v == 1 || v == 4)
+    {
+      System.out.println("\nAlgorthim 1");
+      iterations[0].printTeams(iterations[0].c, iterations[0].count);
+      System.out.println("\nAlgorthim 2");
+      iterations[1].printTeams(iterations[1].c, iterations[1].count);
+      System.out.println("\nFinal Result");
+    }
 
-		iterations[place].printTeams(iterations[place].c);
+		iterations[place].printTeams(iterations[place].c, iterations[place].count);
 			
 			
 	}
@@ -1154,23 +1241,30 @@ public class GoogleHappy
 		return allNames;
 	  }
 		  
-    public void printTeams(User[] users)
+    public void printTeams(User[] users, int n)
     {
+        int numberOfTeams = count/teamsize;
 
-        System.out.println("Total Happiness " + "this is where all happiness is combined to a total"); 
-        int x = 0;
-        for(int i = 0; i < count/teamsize; i++)
+        if (count%teamsize != 0)
         {
-            System.out.printf("Team " + (i+1) + "(" + getHappiness(Arrays.copyOfRange(c, i*teamsize, (i*teamsize)+teamsize), teamsize) + "): "); //i+1 because we dont want Team 0
+          numberOfTeams++;
+        }
+        System.out.println("\nTotal Happiness " + getHappinessoverall(users,n)); 
+        int x = 0;
+        for(int i = 0; i < numberOfTeams; i++)
+        {
+            System.out.printf("Team " + (i+1) + "(" + getHappinessteam(Arrays.copyOfRange(c, i*teamsize, (i*teamsize)+teamsize), teamsize,-1) + "): "); //i+1 because we dont want Team 0
             for(int p = 0; p < teamsize; p++)
             {
+              if (users[x].id != -1)
+              {
                 if(p!=0)
                     System.out.printf(", ");
-                System.out.printf(users[x].name + "(" + users[x].happiness + ")");
+                System.out.printf(users[x].name + "(" + getHappinessteam(Arrays.copyOfRange(c, i*teamsize, (i*teamsize)+teamsize), teamsize,p) + ")");
+              }
                 x++;
             }
             System.out.println("");
         }
-        System.out.println("end");
     }
 }
