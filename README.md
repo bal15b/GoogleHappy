@@ -1,5 +1,20 @@
 # GoogleHappy
 
+To run through command line
+---
+java -cp target/classes GoogleHappy -v 0 -t 3 -p 0 < filename.csv
+
+v = verbosity
+t = teamsize 
+p = 0 
+The program gives the least popular person highest precident
+p = 1
+The program gives the most popular person highest precident
+
+
+
+
+
 What is it?
 ----
 The GoogleHappy sorting system using the same system as Google does for organizing teams based on preference when taking in a list of preferences using the pagerank system that is also part of the Google search engine. It follows references to the preferred individuals among every input list, creating a weighing system that then determines teams.
