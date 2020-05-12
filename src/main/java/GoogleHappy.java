@@ -1116,8 +1116,8 @@ public class GoogleHappy
 	
 
   }
-  public GoogleHappy[] iterations = new GoogleHappy[3];
-	public void main (String[] args )  throws FileNotFoundException
+  public static GoogleHappy[] iterations = new GoogleHappy[3];
+	public static void main (String[] args )  throws FileNotFoundException
 	{
 		//creates the main GoogleHappy object and runs primaryFunction
 		iterations[0] = new GoogleHappy();

@@ -877,13 +877,11 @@ public class GoogleHappyTest
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
-		
-		g.main(new String[]{"-v","4"} );
-				
-		assertEquals(g.iterations[0].verbosity, 4);
-
 
 		
+		g.primaryFunction(1);	
+
+		assertEquals(g.count,9);
 
 	}
 
@@ -899,12 +897,11 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.main(new String[]{"-p","0"} );
-				
-		assertEquals(g.iterations[0].proposal, 0);
 
+		g.primaryFunction(1);	
 
-		
+		assertEquals(g.count,9);
+
 
 	}
 	
@@ -920,12 +917,11 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.main(new String[]{""});
-				
-		assertEquals(g.iterations[0].proposal, 0);
 
+		g.primaryFunction(1);	
 
 		
+		assertEquals(g.count,9);
 
 	}
 	@Test
@@ -939,12 +935,10 @@ public class GoogleHappyTest
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
-		
-		g.main(new String[]{""});
-				
-		assertEquals(g.iterations[0].teamsize, 3);
 
+		g.primaryFunction(1);	
 		
+		assertEquals(g.count,9);
 
 	}
 	@Test
@@ -959,13 +953,10 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.main(new String[]{"-p","0", "-t", "3", "-v","1"} );
-				
-		assertEquals(g.iterations[0].teamsize, 3);
-		assertEquals(g.iterations[0].proposal, 0);
-		assertEquals(g.iterations[0].verbosity, 1);
 
+		g.primaryFunction(0);	
 
+		assertEquals(g.count,9);
 
 		
 
@@ -983,11 +974,9 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		g.main(new String[]{"-p","0", "-t", "3", "-v","1"} );
-				
-		assertEquals(g.iterations[0].teamsize, 3);
-		assertEquals(g.iterations[0].proposal, 0);
-		assertEquals(g.iterations[0].verbosity, 1);
+		g.primaryFunction(0);	
+		assertEquals(g.count,9);
+
 	}
 
 	
@@ -1002,12 +991,10 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","0", "-t", "4", "-v","1"};
-		
-		g.main(options);
-		assertEquals(g.iterations[0].proposal, 0);
-		assertEquals(g.iterations[0].teamsize, 4);
-		assertEquals(g.iterations[0].verbosity, 1);
+		g.primaryFunction(0);	
+		assertEquals(g.count,12);
+
+
 	}
 	
 	@Test
@@ -1021,13 +1008,9 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","1", "-t", "4", "-v","1"};
-		
-		g.main(options);
-		
-		assertEquals(g.iterations[0].proposal, 1);
-		assertEquals(g.iterations[0].teamsize, 4);
-		assertEquals(g.iterations[0].verbosity, 1);
+		g.primaryFunction(0);	
+		assertEquals(g.count,12);
+
 	}
 	
 	@Test
@@ -1041,13 +1024,9 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","1", "-t", "5", "-v","1"};
 		
-		g.main(options);
-		
-		assertEquals(g.iterations[0].proposal, 1);
-		assertEquals(g.iterations[0].teamsize, 5);
-		assertEquals(g.iterations[0].verbosity, 1);
+		g.primaryFunction(0);	
+		assertEquals(g.count,15);
 	}
 	
 	@Test
@@ -1061,13 +1040,10 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","1", "-t", "5", "-v","1"};
-		
-		g.main(options);
-		
-		assertEquals(g.iterations[0].proposal, 1);
-		assertEquals(g.iterations[0].teamsize, 5);
-		assertEquals(g.iterations[0].verbosity, 1);
+		g.primaryFunction(0);	
+
+		assertEquals(g.count,15);
+
 	}
 	
 	@Test
@@ -1081,30 +1057,27 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","1", "-t", "5", "-v","1"};
-		
-		g.main(options);
-		
-		assertEquals(g.iterations[0].proposal, 1);
-		assertEquals(g.iterations[0].teamsize, 5);
-		assertEquals(g.iterations[0].verbosity, 1);
+		g.primaryFunction(0);	
+		assertEquals(g.count,14);
+
 	}
 
 	@Test
 	public void verbositytest1()   throws FileNotFoundException
     {
 		//test 47 by Ben
-		System.out.println("\n------Verbosity test 1------");
+		System.out.println("\n------TEST 21------");
     	GoogleHappy g = new GoogleHappy();
-
-		String prefs = "A,B,C\nB,D,C,A\nC,D\nD,C";
+		
+		String prefs = "Nic,Eden,Jane,Xander\nAshley,Mya,Xander\nXander,Gerry,Nic,Mya\nMya,Xander,Josh,Eden\nEden,Nic,Ashley,Mya\nJosh,Carter,Jane\nCarter,Josh,Mya,Ashley\nJane,Ashley,Eden\nGerry,Nic,Mya,Carter";
+		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","0", "-t", "2", "-v","1"};
-		
-		g.main(options);
-		
+		g.teamsize = 3;
+		g.primaryFunction(1);
+			
+		assertEquals(g.teams[0].name,"Jane");
 
 	}
 	@Test
@@ -1118,100 +1091,55 @@ public class GoogleHappyTest
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","0", "-t", "2", "-v","2"};
-		
-		g.main(options);
-		
+
+		g.primaryFunction(0);	
+		assertEquals(g.count,4);
 
 	}
 	@Test
 	public void verbositytest3()   throws FileNotFoundException
     {
 		//test 49 by Ben
-		System.out.println("\n------Verbosity test 3------");
+		System.out.println("\n------TEST 32------");
     	GoogleHappy g = new GoogleHappy();
 
-		String prefs = "A,B,C\nB,D,C,A\nC,D\nD,C";
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","0", "-t", "2", "-v","3"};
+		g.teamsize = 3;
+		g.primaryFunction(1);
+
+		System.out.println("");
+		for(int i = 0; i < g.teams.length; i++)
+		{System.out.println(g.teams[i].name);
+		System.out.println(g.teams[i].rank);}
 		
-		g.main(options);
-		
+		assertEquals(g.teams[4].name,"Nic");
+
 
 	}
 	@Test
 	public void verbositytest4()   throws FileNotFoundException
     {
 		//test 50 by Ben
-		System.out.println("\n------Verbosity test 4------");
+		System.out.println("\n------TEST 35------");
     	GoogleHappy g = new GoogleHappy();
 
-		String prefs = "A,B,C\nB,D,C,A\nC,D\nD,C";
+		String prefs = "Nic,Carter,Xander\nAshley,Mya,Xander\nXander,Gerry,Ashley,Mya\nMya,Eden,Josh,Nic\nEden,Ashley\nJosh,Carter,Jane\nCarter,Jane,Mya,Ashley\nJane,Nic\nGerry,Mya,Josh";
+		
 		ByteArrayInputStream in = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in);
 		
-		String[] options = new String[] {"-p","0", "-t", "2", "-v","4"};
+		g.teamsize = 3;
+		g.primaryFunction(1);	
 		
-		g.main(options);
+		assertEquals(g.teams[6].rank-0.24444444444444446 < .00001, 0.24444444444444446-0.24444444444444446 < .00001);
+		assertEquals(g.teams[7].rank-0.2811728395061729 < .00001, 0.2811728395061729-0.2811728395061729 < .00001);
+		assertEquals(g.teams[8].rank-0.3074074074074074 < .00001, 0.3074074074074074-0.3074074074074074 < .00001);
+
 		
-
 	}
-	/* test works but takes a long time due to the number of iterations run at your own risk*/
-	/*
-	@Test
-	public void zzmassivetest()  throws FileNotFoundException
-    {
-		//Test 51 By Ben Lamont
-		System.out.println("\n------TEST 51------");
-		for (int n = 6; n < 100; n++)
-		{
 
-			String[] temp = new String[n];
-			String t = "";
-
-
-			for(int k = 0; k < 10; k++)
-			{
-				Random rnd = new Random(k);
-				Random rnd2 = new Random(k);
-				int teamsize;
-				for(int l = 0; l < n; l++)
-				{
-					teamsize = rnd2.nextInt((n/2)-2) + 2;
-				
-
-
-					for(int i = 0; i < n; i++)
-					{
-						temp[i] = Integer.toString(i);
-						for(int j = 0; j < 6; j++)
-						{
-							if(rnd.nextInt(2) == 0)
-							{
-								temp[i] = temp[i] + "," + Integer.toString(rnd.nextInt(n));
-							}
-						}
-
-					}
-
-					t = "";
-
-					for(int i = 0; i < n; i++)
-					{
-						t = t + temp[i] + "\n";
-					}
-
-					ByteArrayInputStream in = new ByteArrayInputStream(t.getBytes());
-					System.setIn(in);
-
-					GoogleHappy g = new GoogleHappy();
-
-					g.main(new String[]{"-p","0", "-t", Integer.toString(teamsize), "-v","0"} );
-				}
-			}
-		}
-	}
-	*/
 }
